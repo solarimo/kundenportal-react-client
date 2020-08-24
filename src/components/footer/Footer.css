@@ -1,0 +1,9 @@
+.footer div {
+    margin: 10px;
+    font-weight: bold;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #ffffff;
+}
