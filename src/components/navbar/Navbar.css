@@ -20,6 +20,7 @@ ul {
 
 .burger {
     display: none;
+    user-select: none;
 }
 
 .burger div {
@@ -27,6 +28,7 @@ ul {
     height: 2px;
     background-color: #304148;
     margin: 5px;
+    transition: all .3s ease;
 }
 
 @media screen and (max-width: 768px) {
@@ -44,7 +46,7 @@ ul {
 
     .nav-links {
         position: absolute;
-        top: 25vh;
+        top: 26vh;
         overflow: hidden;
         left: 0;
         max-height: 0;
@@ -53,8 +55,12 @@ ul {
         flex-direction: column;
         width: 100%;
         transition: max-height 0.3s ease-out;
-        background-color: #ddd;
+        background-color: #304148;
         justify-content: flex-start;
+    }
+
+    .nav-links a {
+        color: #ffffff;
     }
 
     nav {
@@ -68,7 +74,17 @@ ul {
     }
 
     .nav-active {
-        max-height: 50vh;
+        max-height: 100vh;
 
+    }
+
+    .burger-transformation .line1 {
+        transform: rotate(-45deg) translate(-5px, 5px);
+    }
+    .burger-transformation .line2 {
+        opacity: 0;
+    }
+    .burger-transformation .line3 {
+        transform: rotate(45deg) translate(-5px, -5px);
     }
 }

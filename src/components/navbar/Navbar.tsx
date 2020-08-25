@@ -5,10 +5,13 @@ import './Navbar.css'
 export class Navbar extends React.Component {
 
     private nav = React.createRef<HTMLUListElement>();
+    private burger = React.createRef<HTMLDivElement>();
 
     toggleNav = () => {
        const nav = this.nav.current!;
+       const burger = this.burger.current!;
        nav.classList.toggle('nav-active');
+       burger.classList.toggle('burger-transformation');
     }
 
     render() {
@@ -22,10 +25,10 @@ export class Navbar extends React.Component {
                         <li><a>Dokumente und Rechnungen</a></li>
                     </ul>
                     <hr />
-                    <div className="burger" onClick={() => this.toggleNav()}>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                    <div ref={this.burger} className="burger" onClick={() => this.toggleNav()}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
                     </div>
                 </nav>
             </div>
