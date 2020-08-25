@@ -12,7 +12,20 @@
     text-decoration: none;
     text-transform: uppercase;
     color: #304148;
+    padding: 16px;
+    transition: 0.4s;
 }
+
+.nav-links a:focus {
+    background-color: #dddddd;
+    font-weight: 900;
+}
+
+
+.nav-links a:hover {
+    background-color: #dddddd;
+}
+
 
 ul {
     padding: 0;
@@ -46,7 +59,7 @@ ul {
 
     .nav-links {
         position: absolute;
-        top: 26vh;
+        top: 26%;
         overflow: hidden;
         left: 0;
         max-height: 0;
@@ -79,12 +92,12 @@ ul {
     }
 
     .burger-transformation .line1 {
-        transform: rotate(-45deg) translate(-5px, 5px);
+        transform: rotate(-405deg) translate(-5px, 5px);
     }
     .burger-transformation .line2 {
         opacity: 0;
     }
     .burger-transformation .line3 {
-        transform: rotate(45deg) translate(-5px, -5px);
+        transform: rotate(405deg) translate(-5px, -5px);
     }
 }

@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import './Navbar.css'
 
 
@@ -19,10 +19,10 @@ export class Navbar extends React.Component {
             <div className="navbar">
                 <nav>
                     <ul ref={this.nav} className="nav-links">
-                        <li><a>Meine Daten</a></li>
-                        <li><a>Zählerstande</a></li>
-                        <li><a>Mein Vertrag</a></li>
-                        <li><a>Dokumente und Rechnungen</a></li>
+                        <li><a href="#">Meine Daten</a></li>
+                        <li><a href="#">Zählerstande</a></li>
+                        <li><a href="#">Mein Vertrag</a></li>
+                        <li><a href="#">Dokumente und Rechnungen</a></li>
                     </ul>
                     <hr />
                     <div ref={this.burger} className="burger" onClick={() => this.toggleNav()}>
