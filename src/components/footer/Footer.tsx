@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Footer.css';
 
-export const Footer = () => {
+export const Footer = (): JSX.Element => {
     return (
         <div className="footer">
             <div>
