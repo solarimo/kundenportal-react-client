@@ -1,5 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+
 import './Navbar.css'
+
 
 
 export class Navbar extends React.Component {
@@ -7,7 +11,7 @@ export class Navbar extends React.Component {
     private nav = React.createRef<HTMLUListElement>();
     private burger = React.createRef<HTMLDivElement>();
 
-    toggleNav = () => {
+    private toggleNav = () => {
        const nav = this.nav.current!;
        const burger = this.burger.current!;
        nav.classList.toggle('nav-active');
@@ -19,10 +23,10 @@ export class Navbar extends React.Component {
             <div className="navbar">
                 <nav>
                     <ul ref={this.nav} className="nav-links">
-                        <li><a href="#">Meine Daten</a></li>
-                        <li><a href="#">Zählerstände</a></li>
-                        <li><a href="#">Mein Vertrag</a></li>
-                        <li><a href="#">Dokumente und Rechnungen</a></li>
+                        <li onClick={this.toggleNav}><Link to="/meine-daten">Meine Daten</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/zaehlerstaende">Zählerstände</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/mein-vertrag">Mein Vertrag</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/dokumente-und-rechnungen">Dokumente und Rechnungen</Link></li>
                     </ul>
                     <hr />
                     <div ref={this.burger} className="burger" onClick={this.toggleNav}>
