@@ -59,7 +59,7 @@ ul {
 
     .nav-links {
         position: absolute;
-        top: 220px;
+        top: 127px;
         overflow: hidden;
         left: 0;
         max-height: 0;
@@ -87,6 +87,9 @@ ul {
 
     .burger {
         display: block;
+        position: absolute;
+        top: 50px;
+        right: 20px;
         cursor: pointer;
         margin: auto;
     }

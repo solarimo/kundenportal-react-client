@@ -16,7 +16,6 @@ hr {
     grid-template-columns: 100%;
     grid-template-areas: 
         "header"
-        "navbar"
         "content"
         "footer";
     margin: 0 10%;
@@ -24,10 +23,6 @@ hr {
 
 .header {
     grid-area: header;
-    display: flex;
-    flex-wrap: wrap;
-    box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
-    padding: 0 1em;
 }
 
 .content {
@@ -35,9 +30,6 @@ hr {
     height: 60vh;
 }
 
-.navbar {
-    grid-area: navbar;
-}
 
 .footer {
     grid-area: footer;
