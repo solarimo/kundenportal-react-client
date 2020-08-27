@@ -28,6 +28,7 @@ hr {
 .content {
     grid-area: content;
     height: 60vh;
+    padding: 20px;
 }
 
 

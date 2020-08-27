@@ -15,13 +15,15 @@ export class App extends React.Component {
             <div className="main">
                 <BrowserRouter>
                     <Header />
-                    <Switch>
-                        <Route exact path="/" component={PersonalData}/>
-                        <Route exact path="/meine-daten" component={PersonalData}/>
-                        <Route exact path="/zaehlerstaende" component={Zaehlerstaende}/>
-                        <Route exact path="/mein-vertrag" component={MeinVertrag}/>
-                        <Route exact path="/dokumente-und-rechnungen" component={DokumenteUndRechnungen}/>
-                    </Switch>
+                    <div className="content">
+                        <Switch>
+                            <Route exact path="/" component={PersonalData}/>
+                            <Route exact path="/meine-daten" component={PersonalData}/>
+                            <Route exact path="/zaehlerstaende" component={Zaehlerstaende}/>
+                            <Route exact path="/mein-vertrag" component={MeinVertrag}/>
+                            <Route exact path="/dokumente-und-rechnungen" component={DokumenteUndRechnungen}/>
+                        </Switch>
+                    </div>
                     <Footer />
                 </BrowserRouter>
             </div>
