@@ -17,7 +17,7 @@ export class App extends React.Component {
                     <div className="content">
                         <Switch>
                             <Route exact path="/" component={Welcome}/>
-                            <Route exact path="/portal" component={KundenPortal}/>
+                            <Route path="/portal" component={KundenPortal}/>
                         </Switch>
                     </div>
                     <Footer />
