@@ -16,7 +16,8 @@
     transition: 0.4s;
 }
 
-.nav-links a:focus {
+
+.nav-link-active {
     background-color: #dddddd;
     font-weight: 900;
 }

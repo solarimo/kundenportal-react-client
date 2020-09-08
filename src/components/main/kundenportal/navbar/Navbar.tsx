@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import './Navbar.css'
 
@@ -22,10 +22,10 @@ export class Navbar extends React.Component {
             <div className="navbar">
                 <nav>
                     <ul ref={this.nav} className="nav-links">
-                        <li onClick={this.toggleNav}><Link to="/portal/meine-daten">Meine Daten</Link></li>
-                        <li onClick={this.toggleNav}><Link to="/portal/zaehlerstaende">Zählerstände</Link></li>
-                        <li onClick={this.toggleNav}><Link to="/portal/mein-vertrag">Mein Vertrag</Link></li>
-                        <li onClick={this.toggleNav}><Link to="/portal/dokumente-und-rechnungen">Dokumente und Rechnungen</Link></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/meine-daten">Meine Daten</NavLink></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/zaehlerstaende">Zählerstände</NavLink></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/mein-vertrag">Mein Vertrag</NavLink></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/dokumente-und-rechnungen">Dokumente und Rechnungen</NavLink></li>
                     </ul>
                     <hr />
                     <div ref={this.burger} className="burger" onClick={this.toggleNav}>
