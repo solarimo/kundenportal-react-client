@@ -7,6 +7,7 @@ import { PersonalData } from './main/PersonalData';
 import { Zaehlerstaende } from './main/Zaehlerstaende';
 import { MeinVertrag } from './main/MeinVertrag';
 import { DokumenteUndRechnungen } from './main/DokumenteUndRechnungen';
+import { Navbar } from './header/navbar/Navbar';
 
 
 export class App extends React.Component {
@@ -16,6 +17,7 @@ export class App extends React.Component {
                 <BrowserRouter>
                     <Header />
                     <div className="content">
+                        <Navbar />
                         <Switch>
                             <Route exact path="/" component={PersonalData}/>
                             <Route exact path="/meine-daten" component={PersonalData}/>
