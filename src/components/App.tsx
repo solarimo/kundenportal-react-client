@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { Header } from './header/Header';
 import { Footer } from './footer/Footer';
 import { KundenPortal } from './main/kundenportal/KundenPortal';
+import { Welcome } from './main/welcome/Welcome';
 
 
 
@@ -14,7 +15,10 @@ export class App extends React.Component {
                 <BrowserRouter>
                     <Header />
                     <div className="content">
-                        <KundenPortal />
+                        <Switch>
+                            <Route exact path="/" component={Welcome}/>
+                            <Route exact path="/portal" component={KundenPortal}/>
+                        </Switch>
                     </div>
                     <Footer />
                 </BrowserRouter>
