@@ -22,10 +22,10 @@ export class Navbar extends React.Component {
             <div className="navbar">
                 <nav>
                     <ul ref={this.nav} className="nav-links">
-                        <li onClick={this.toggleNav}><Link to="/meine-daten">Meine Daten</Link></li>
-                        <li onClick={this.toggleNav}><Link to="/zaehlerstaende">Zählerstände</Link></li>
-                        <li onClick={this.toggleNav}><Link to="/mein-vertrag">Mein Vertrag</Link></li>
-                        <li onClick={this.toggleNav}><Link to="/dokumente-und-rechnungen">Dokumente und Rechnungen</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/portal/meine-daten">Meine Daten</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/portal/zaehlerstaende">Zählerstände</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/portal/mein-vertrag">Mein Vertrag</Link></li>
+                        <li onClick={this.toggleNav}><Link to="/portal/dokumente-und-rechnungen">Dokumente und Rechnungen</Link></li>
                     </ul>
                     <hr />
                     <div ref={this.burger} className="burger" onClick={this.toggleNav}>
