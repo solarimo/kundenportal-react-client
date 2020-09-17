@@ -1,4 +1,5 @@
 import React from 'react';
+import { PrimaryButton } from '../../global-components/PrimaryButton';
 
 import { FormField } from './FormField';
 
@@ -8,6 +9,7 @@ export class AddressCheck extends React.Component {
     return (
       <div className="address-component">
           <h3>Bitte nennen Sie uns Ihre Adresse. Wir prüfen für Sie, ob der Solarstrom vom Dach in Ihrer Wohnung verfügbar ist.</h3>
+          <br/>
           <form>
             <FormField
               id="address-input"
@@ -23,8 +25,10 @@ export class AddressCheck extends React.Component {
                 <FormField id="stadt" labelName="Stadt" width="50%" />
               </div>
             </div>
+            <div className="flex-btn">
+              <PrimaryButton text="Zu Ihrem Tarif"/>
+            </div>
           </form>
-          <button type="submit">Zu Ihrem Tarif</button>
         </div>
     );
   }

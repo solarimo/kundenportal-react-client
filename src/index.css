@@ -1,7 +1,9 @@
-body {
+* {
     font-family: 'Raleway', sans-serif;
-    font-size: 16px;
     color: #304148;
+}
+
+body {
     margin: 0;
 }
 
@@ -10,6 +12,21 @@ hr {
     height: 1px;
     border: none;
 }
+
+button {
+    border: none;
+    padding: 20px;
+    background-color: #fdc300;
+    text-transform: uppercase;
+    outline: none;
+    transition: all 0.2s linear;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #304148;
+    color: #ffffff;
+  }
 
 .main {
     display: grid;
@@ -41,6 +58,10 @@ hr {
     flex-wrap: wrap;
     padding: 0 10%;
 }
+
+.footer p {
+    color: #ffffff;
+} 
 
 @media screen and (max-width: 768px) {
     .main {
