@@ -1,0 +1,41 @@
+.register-navbar {
+  text-transform: uppercase;
+  margin-bottom: 100px;
+}
+
+.register-navbar ul {
+  display: flex ;
+  flex-wrap: nowrap;
+  counter-reset: step;
+}
+
+
+.register-navbar .navbar li {
+  list-style-type: none;
+  text-align: center;
+  color: #dddddd;
+  margin: auto;
+  padding: 0;
+}
+
+.register-navbar li a {
+  text-decoration: none;
+  color: #dddddd;
+}
+
+.register-navbar li::before {
+  border: 3px solid #dddddd;
+  content: counter(step);
+  counter-increment: step;
+  width: 40px;
+  height: 40px;
+  display: block;
+  border-radius: 50%;
+  line-height: 40px;
+  margin: 10px auto;
+}
+
+.register-navbar .navbar li.active {
+  color: #fdc300;
+  font-weight: bold;
+}
