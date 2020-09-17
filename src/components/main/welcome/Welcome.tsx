@@ -6,6 +6,8 @@ export const Welcome: FunctionComponent = (): JSX.Element => {
     <div>
       <h1>Willkommen!</h1>
       <Link to="/portal">Mein Portal</Link>
+      <br/>
+      <Link to="/register">Registrieren</Link>
     </div>
   );
 }
