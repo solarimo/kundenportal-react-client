@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './RegisterNavbar.css'
 
@@ -9,10 +9,10 @@ export class RegisterNavbar extends React.Component {
     return (
       <div className="register-navbar">
         <ul className="navbar">
-          <li className="active"><Link to="/register/verfuegbarkeit">Verfügbarkeit</Link></li>
-          <li><Link to="/register/ihr-tarif">Ihr Tarif</Link></li>
-          <li><Link to="/register/vertragsdaten">Vertragsdaten</Link></li>
-          <li><Link to="/register/uebersicht">uebersicht</Link></li>
+          <li><NavLink activeClassName="register-nav-active" to="/register/verfuegbarkeit">Verfügbarkeit</NavLink></li>
+          <li><NavLink activeClassName="register-nav-active" to="/register/ihr-tarif">Ihr Tarif</NavLink></li>
+          <li><NavLink activeClassName="register-nav-active" to="/register/vertragsdaten">Vertragsdaten</NavLink></li>
+          <li><NavLink activeClassName="register-nav-active" to="/register/uebersicht">Übersicht</NavLink></li>
         </ul>
       </div>
     );

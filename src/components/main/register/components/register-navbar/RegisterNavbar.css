@@ -18,12 +18,12 @@
   padding: 0;
 }
 
-.register-navbar li a {
+.register-navbar a {
   text-decoration: none;
   color: #dddddd;
 }
 
-.register-navbar li::before {
+.register-navbar a::before {
   border: 3px solid #dddddd;
   content: counter(step);
   counter-increment: step;
@@ -35,7 +35,12 @@
   margin: 10px auto;
 }
 
-.register-navbar .navbar li.active {
+.register-nav-active, a.register-nav-active {
   color: #fdc300;
   font-weight: bold;
+ 
+}
+
+a.register-nav-active::before {
+  border-color: #fdc300;
 }
