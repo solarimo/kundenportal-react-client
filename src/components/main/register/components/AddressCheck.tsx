@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormField } from './components/FormField';
+import { FormField } from './FormField';
 
 export class AddressCheck extends React.Component {
 

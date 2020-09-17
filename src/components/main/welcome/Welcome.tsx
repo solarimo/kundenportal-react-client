@@ -5,9 +5,9 @@ export const Welcome: FunctionComponent = (): JSX.Element => {
   return (
     <div>
       <h1>Willkommen!</h1>
-      <Link to="/portal">Mein Portal</Link>
+      <Link to="/portal/meine-daten">Mein Portal</Link>
       <br/>
-      <Link to="/register">Registrieren</Link>
+      <Link to="/register/verfuegbarkeit">Registrieren</Link>
     </div>
   );
 }
