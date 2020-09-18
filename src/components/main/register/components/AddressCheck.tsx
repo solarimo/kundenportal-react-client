@@ -10,29 +10,21 @@ interface Address {
   stadt: string
 }
 
-
-interface AddressCheckState {
-  searchValue: string
-  address: Address
-}
-
-class AddressCheck extends React.Component<InjectedFormProps, AddressCheckState> {
+class AddressCheck extends React.Component<InjectedFormProps> {
   
   private autocomplete: google.maps.places.Autocomplete | null = null;
 
   constructor(props: InjectedFormProps) {
-    super(props);
-    console.log(this.props);
-    
+    super(props);    
   }
 
   componentDidMount() {
     const input: HTMLInputElement = document.getElementById('address-input') as HTMLInputElement;
     this.autocomplete = new google.maps.places.Autocomplete(input);
-    this.autocomplete.addListener('place_changed', this.getAddress);
+    this.autocomplete.addListener('place_changed', this.setAddressFields);
   }
 
-  getAddress = () => {
+  setAddressFields = () => {
     const response: google.maps.places.PlaceResult = this.autocomplete!.getPlace();
     this.props.change('strasse', response.address_components![1].long_name);
     this.props.change('hausnummer', response.address_components![0].long_name);
@@ -42,7 +34,10 @@ class AddressCheck extends React.Component<InjectedFormProps, AddressCheckState>
 
   renderInput(formProps: any) {
     return (
+      <div>
+        <label>{formProps.label}</label>
         <input {...formProps.input} type="text" />
+      </div>
     );
   }
 
@@ -57,22 +52,18 @@ class AddressCheck extends React.Component<InjectedFormProps, AddressCheckState>
             <br />
             <div className="flex-container">
               <div style={{ width: '75%' }}>
-                <label>Straße</label>
-                <Field name="strasse" component={this.renderInput} />
+                <Field label="Straße" name="strasse" component={this.renderInput} />
               </div>
               <div style={{ width: '25%' }}>
-                <label>Hausnummer</label>
-                <Field name="hausnummer" component={this.renderInput} />
+                <Field label="Hausnummer" name="hausnummer" component={this.renderInput} />
               </div>
             </div>
             <div className="flex-container">
               <div style={{ width: '50%' }}>
-                <label>Postleitzahl</label>
-                <Field name="postleitzahl" component={this.renderInput} />
+                <Field label="Postleitzahl" name="postleitzahl" component={this.renderInput} />
               </div>
               <div style={{ width: '50%' }}>
-                <label htmlFor="stadt">Stadt</label>
-                <Field name="stadt" component={this.renderInput} />
+                <Field label="Stadt" name="stadt" component={this.renderInput} />
               </div>
             </div>
             <div className="flex-btn">
