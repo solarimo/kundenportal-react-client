@@ -1,34 +1,29 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
+import { Field, InjectedFormProps, reduxForm, change, FieldArrayMetaProps, FormProps } from 'redux-form';
+
 import { PrimaryButton } from '../../global-components/PrimaryButton';
 
 interface Address {
-  strasse?: string,
-  hausnummer?: number | undefined,
-  postleitzahl?: number | undefined,
-  stadt?: string
+  strasse: string,
+  hausnummer: number,
+  postleitzahl: number,
+  stadt: string
 }
+
 
 interface AddressCheckState {
   searchValue: string
   address: Address
 }
 
-export class AddressCheck extends React.Component<{}, AddressCheckState> {
+class AddressCheck extends React.Component<InjectedFormProps, AddressCheckState> {
   
   private autocomplete: google.maps.places.Autocomplete | null = null;
 
-  constructor(props: {}) {
+  constructor(props: InjectedFormProps) {
     super(props);
-
-    this.state = ({
-      searchValue: '',
-      address: {
-        strasse: '',
-        hausnummer: undefined,
-        postleitzahl: undefined,
-        stadt: ''
-      }
-    })
+    console.log(this.props);
+    
   }
 
   componentDidMount() {
@@ -39,23 +34,16 @@ export class AddressCheck extends React.Component<{}, AddressCheckState> {
 
   getAddress = () => {
     const response: google.maps.places.PlaceResult = this.autocomplete!.getPlace();
-    console.log(response);
-    this.setState({
-      address: {
-        strasse: response.address_components![1].long_name,
-        hausnummer: parseInt(response.address_components![0].long_name),
-        stadt: response.address_components![3].long_name,
-        postleitzahl: parseInt(response.address_components![7].long_name)
-      }
-    });
-    console.log(this.state);
-
+    this.props.change('strasse', response.address_components![1].long_name);
+    this.props.change('hausnummer', response.address_components![0].long_name);
+    this.props.change('postleitzahl', response.address_components![3].long_name);
+    this.props.change('stadt', response.address_components![7].long_name);
   }
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ address: {
-      [e.target.id]: e.target.value
-    } });
+  renderInput(formProps: any) {
+    return (
+        <input {...formProps.input} type="text" />
+    );
   }
 
   render() {
@@ -65,26 +53,26 @@ export class AddressCheck extends React.Component<{}, AddressCheckState> {
         <form>
           <div id="address-container">
             <label htmlFor="">Suchen Sie hier nach Ihrer Addresse</label>
-            <input id="address-input" type="text" />
+            <input id="address-input" type="text" placeholder=". . ."/>
             <br />
             <div className="flex-container">
               <div style={{ width: '75%' }}>
-                <label htmlFor="strasse">Straße</label>
-                <input onChange={this.handleChange} value={this.state.address.strasse} id="strasse" type="text" />
+                <label>Straße</label>
+                <Field name="strasse" component={this.renderInput} />
               </div>
               <div style={{ width: '25%' }}>
-                <label htmlFor="hausnummer">Hausnummer</label>
-                <input value={this.state.address.hausnummer} id="strasse" type="text" />
+                <label>Hausnummer</label>
+                <Field name="hausnummer" component={this.renderInput} />
               </div>
             </div>
             <div className="flex-container">
               <div style={{ width: '50%' }}>
-                <label htmlFor="postleitzahl">Postleitzahl</label>
-                <input value={this.state.address.postleitzahl} id="postleitzahl" type="text" />
+                <label>Postleitzahl</label>
+                <Field name="postleitzahl" component={this.renderInput} />
               </div>
               <div style={{ width: '50%' }}>
                 <label htmlFor="stadt">Stadt</label>
-                <input value={this.state.address.stadt} id="stadt" type="text" />
+                <Field name="stadt" component={this.renderInput} />
               </div>
             </div>
             <div className="flex-btn">
@@ -97,3 +85,7 @@ export class AddressCheck extends React.Component<{}, AddressCheckState> {
     );
   }
 }
+
+export default reduxForm({
+  form: 'address'
+})(AddressCheck);
