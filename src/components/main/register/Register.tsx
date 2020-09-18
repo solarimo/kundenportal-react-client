@@ -5,31 +5,9 @@ import { RegisterNavbar } from './components/register-navbar/RegisterNavbar';
 
 import './Register.css';
 
-interface Address {
-  strasse: string,
-  hausnummer: number | null,
-  postleitzahl: number | null,
-  stadt: string
-}
+export class Register extends React.Component {
 
-interface RegisterState {
-  address: Address
-}
 
-export class Register extends React.Component<{}, RegisterState> {
-
-  constructor(props: {}) {
-    super(props);
-
-    this.state = ({
-      address: {
-        strasse: '',
-        hausnummer: null,
-        postleitzahl: null,
-        stadt: ''
-      }
-    })
-  }
 
   render() {
     return (
