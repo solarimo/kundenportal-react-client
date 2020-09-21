@@ -1,22 +1,26 @@
 import React from 'react';
-import { Field, InjectedFormProps, reduxForm, change, FieldArrayMetaProps, FormProps } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 import { PrimaryButton } from '../../global-components/PrimaryButton';
 
 interface Address {
-  strasse: string,
-  hausnummer: number,
-  postleitzahl: number,
-  stadt: string
+  strasse: string;
+  hausnummer: number;
+  postleitzahl: number;
+  stadt: string;
+  valid: boolean;
+}
+
+class GoogleResponseAddress {
+  street_number: string = '';
+  postal_code: string = '';
+  locality: string = '';
+  route: string = '';
 }
 
 class AddressCheck extends React.Component<InjectedFormProps> {
   
   private autocomplete: google.maps.places.Autocomplete | null = null;
-
-  constructor(props: InjectedFormProps) {
-    super(props);    
-  }
 
   componentDidMount() {
     const input: HTMLInputElement = document.getElementById('address-input') as HTMLInputElement;
@@ -26,10 +30,19 @@ class AddressCheck extends React.Component<InjectedFormProps> {
 
   setAddressFields = () => {
     const response: google.maps.places.PlaceResult = this.autocomplete!.getPlace();
-    this.props.change('strasse', response.address_components![1].long_name);
-    this.props.change('hausnummer', response.address_components![0].long_name);
-    this.props.change('postleitzahl', response.address_components![3].long_name);
-    this.props.change('stadt', response.address_components![7].long_name);
+    const responseAddress: GoogleResponseAddress = new GoogleResponseAddress();
+
+    for (const item of response.address_components!) {
+      const addrType: string | undefined = item.types[0];
+      if (responseAddress[addrType as keyof GoogleResponseAddress] !== undefined) {
+        responseAddress[addrType as keyof GoogleResponseAddress] = item.long_name;
+      }
+    }
+
+    this.props.change('strasse', responseAddress.route);
+    this.props.change('hausnummer', responseAddress.street_number);
+    this.props.change('postleitzahl', responseAddress.postal_code);
+    this.props.change('stadt', responseAddress.locality);
   }
 
   renderInput(formProps: any) {
