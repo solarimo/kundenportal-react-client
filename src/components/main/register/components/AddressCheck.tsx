@@ -2,13 +2,14 @@ import React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 import { PrimaryButton } from '../../global-components/PrimaryButton';
+import { required, mustBeNumber, mustBeXlong } from '../../../util/ValidationRules';
 
 interface Address {
   strasse: string;
   hausnummer: number;
   postleitzahl: number;
   stadt: string;
-  valid: boolean;
+  valid?: boolean;
 }
 
 class GoogleResponseAddress {
@@ -19,7 +20,11 @@ class GoogleResponseAddress {
 }
 
 class AddressCheck extends React.Component<InjectedFormProps> {
-  
+
+  constructor(props: InjectedFormProps) {
+    super(props);
+  }
+
   private autocomplete: google.maps.places.Autocomplete | null = null;
 
   componentDidMount() {
@@ -45,38 +50,43 @@ class AddressCheck extends React.Component<InjectedFormProps> {
     this.props.change('stadt', responseAddress.locality);
   }
 
-  renderInput(formProps: any) {
+  renderInput({label, input, meta}: any) {
     return (
       <div>
-        <label>{formProps.label}</label>
-        <input {...formProps.input} type="text" />
+        <label>{label}</label>
+        <input className={(meta.touched && meta.error) ? 'field-error' : '' } {...input} type="text" />
+    {(meta.touched && meta.error) &&  <span style={{ color: 'red', fontSize: '10px' }} >{meta.error}</span> }
       </div>
     );
+  }
+
+  onSubmit = (formValues: any) => {
+    
   }
 
   render() {
     return (
       <div className="address-component">
         <h2>Bitte nennen Sie uns Ihre Adresse. Wir prüfen für Sie, ob der Solarstrom vom Dach in Ihrer Wohnung verfügbar ist.</h2>
-        <form>
+        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div id="address-container">
             <label htmlFor="">Suchen Sie hier nach Ihrer Addresse</label>
             <input id="address-input" type="text" placeholder=". . ."/>
             <br />
             <div className="flex-container">
               <div style={{ width: '75%' }}>
-                <Field label="Straße" name="strasse" component={this.renderInput} />
+                <Field label="Straße" name="strasse" component={this.renderInput} validate={[required]}  />
               </div>
               <div style={{ width: '25%' }}>
-                <Field label="Hausnummer" name="hausnummer" component={this.renderInput} />
+                <Field label="Hausnummer" name="hausnummer" component={this.renderInput} validate={[required]} />
               </div>
             </div>
             <div className="flex-container">
               <div style={{ width: '50%' }}>
-                <Field label="Postleitzahl" name="postleitzahl" component={this.renderInput} />
+                <Field label="Postleitzahl" name="postleitzahl" component={this.renderInput} validate={[required, mustBeNumber, mustBeXlong(5)]} />
               </div>
               <div style={{ width: '50%' }}>
-                <Field label="Stadt" name="stadt" component={this.renderInput} />
+                <Field label="Stadt" name="stadt" component={this.renderInput} validate={[required]} />
               </div>
             </div>
             <div className="flex-btn">
