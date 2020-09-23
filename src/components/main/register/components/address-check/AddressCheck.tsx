@@ -1,8 +1,10 @@
 import React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
-import { PrimaryButton } from '../../global-components/PrimaryButton';
-import { required, mustBeNumber, mustBeXlong } from '../../../util/ValidationRules';
+import { PrimaryButton } from '../../../global-components/PrimaryButton';
+import { required, mustBeNumber, mustBeXlong } from '../../../../util/ValidationRules';
+
+import './AddressCheck.css'
 
 interface Address {
   strasse: string;
@@ -66,10 +68,10 @@ class AddressCheck extends React.Component<InjectedFormProps> {
 
   render() {
     return (
-      <div className="address-component">
+      <div>
         <h2>Bitte nennen Sie uns Ihre Adresse. Wir prüfen für Sie, ob der Solarstrom vom Dach in Ihrer Wohnung verfügbar ist.</h2>
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-          <div id="address-container">
+          <div className="address-container">
             <label htmlFor="">Suchen Sie hier nach Ihrer Addresse</label>
             <input id="address-input" type="text" placeholder=". . ."/>
             <br />

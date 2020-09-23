@@ -24,12 +24,6 @@ input:focus {
   border-bottom-color:#fdc300;
 }
 
-#address-container {
-  margin: 50px 0;
-  width: 50%;
-}
-
-
 .flex-container {
   display: flex;
 }

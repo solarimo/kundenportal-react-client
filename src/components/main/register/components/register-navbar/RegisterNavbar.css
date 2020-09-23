@@ -44,3 +44,10 @@
 a.register-nav-active::before {
   border-color: #fdc300;
 }
+
+@media screen and (max-width: 768px) {
+
+  .register-navbar a {
+    font-size: 7px;
+  }
+}
