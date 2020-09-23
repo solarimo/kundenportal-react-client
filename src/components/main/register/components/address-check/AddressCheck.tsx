@@ -6,13 +6,6 @@ import { required, mustBeNumber, mustBeXlong } from '../../../../util/Validation
 
 import './AddressCheck.css'
 
-interface Address {
-  strasse: string;
-  hausnummer: number;
-  postleitzahl: number;
-  stadt: string;
-  valid?: boolean;
-}
 
 class GoogleResponseAddress {
   street_number: string = '';
