@@ -1,32 +1,24 @@
 import React, { MouseEvent } from 'react';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 import './Calculator.css';
 
-export class Calculator extends React.Component {
+class Calculator extends React.Component<InjectedFormProps> {
 
-  activePersonLabel = { opacity: 1 };
+  onChange() {
+    console.log('changed');
 
-  setStromverbrauch = (e: MouseEvent ) => {
   }
 
-  onChange = () => {
-    console.log('change');
-    
-  }
-
-  renderRadioBoxes(): JSX.Element[] {
-    const boxes = [1, 2, 3, 4, 5];
-
-    return boxes.map(index => {
-      return (
-        <div key={index} >
-          <label onClick={this.setStromverbrauch} htmlFor={'p' + index}>
-            <img src="https://mysolarme.de/wp-content/uploads/icon_person.png" alt="person-img" width="70"/>
-          </label>
-          <input onClick={this.setStromverbrauch} type="radio" id={'p' + index} name="person-amount" />
-        </div>
-      )
-    });
+  renderIconInput = ({ input, id }: any) => {
+    return (
+      <div>
+        <label htmlFor={id}>
+          <img src={'/icon_person.png'} alt="person-img" width="70" />
+        </label>
+        <input {...input} type="radio" id={id} value={id} name="person-amount" />
+      </div>
+    )
   }
 
   render() {
@@ -36,13 +28,17 @@ export class Calculator extends React.Component {
           <div className="calc-top">
             <div>
               <p>Personsen im Haushalt</p>
-                <div className="flex-container">
-                  {this.renderRadioBoxes()}
-                </div>
+              <div className="flex-container">
+                <Field name="personen" id="p1" component={this.renderIconInput} />
+                <Field name="personen" id="p2" component={this.renderIconInput} />
+                <Field name="personen" id="p3" component={this.renderIconInput} />
+                <Field name="personen" id="p4" component={this.renderIconInput} />
+                <Field name="personen" id="p5" component={this.renderIconInput} />
+              </div>
             </div>
             <div>
               <p>oder Stromverbrauch (kWh/Jahr)</p>
-              <input type="text"/>
+              <input type="text" />
             </div>
           </div>
           <div className="calc-bottom">
@@ -53,3 +49,7 @@ export class Calculator extends React.Component {
     )
   }
 }
+
+export default reduxForm({
+  form: 'register'
+})(Calculator)

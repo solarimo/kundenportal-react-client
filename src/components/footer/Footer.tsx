@@ -7,7 +7,7 @@ export const Footer = (): JSX.Element => {
         <div className="footer">
             <div>
                 <div>
-                    <img src={'./SOLARME-Logo-negative-RGB.svg'} alt="solarme logo negative"/>
+                    <img src={'/SOLARME-Logo-negative-RGB.svg'} alt="solarme logo negative"/>
                     <p>Tempelhofer Weg 44</p>
                     <p>10829 Berlin</p>
                     <p><a href="tel:+4930767582241">030/767 582 241</a></p>

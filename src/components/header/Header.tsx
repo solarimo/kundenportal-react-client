@@ -8,7 +8,7 @@ export const Header: FunctionComponent = () => {
         <div className="header">
             <div className="headline">
                 <Link  to="/" >
-                    <img height="60" src={'./Logo_SolarME-300x71.png'} alt="Solarme Logo"/>
+                    <img height="60" src={'/Logo_SolarME-300x71.png'} alt="Solarme Logo"/>
                 </Link>
                 <h1>Mein Portal</h1>
             </div>
