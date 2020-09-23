@@ -16,10 +16,6 @@ class GoogleResponseAddress {
 
 class AddressCheck extends React.Component<InjectedFormProps> {
 
-  constructor(props: InjectedFormProps) {
-    super(props);
-  }
-
   private autocomplete: google.maps.places.Autocomplete | null = null;
 
   componentDidMount() {

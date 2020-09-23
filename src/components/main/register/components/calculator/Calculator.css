@@ -1,0 +1,26 @@
+.calc {
+  
+}
+
+.calc-top p {
+  color: #FDC300;
+}
+
+.calc-top {
+  background-color: #2C3F46;
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  
+}
+
+.active-person-label {
+  opacity: 1;
+}
+
+.calc-top label {
+  opacity: 0.2;
+  cursor: pointer;
+}

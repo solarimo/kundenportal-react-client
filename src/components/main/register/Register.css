@@ -24,10 +24,6 @@ input:focus {
   border-bottom-color:#fdc300;
 }
 
-.flex-container {
-  display: flex;
-}
-
 .flex-btn {
   display: flex;
   justify-content: center;
