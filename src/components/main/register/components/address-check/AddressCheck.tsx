@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 import { PrimaryButton } from '../../../global-components/PrimaryButton';
-import { required, mustBeNumber, mustBeXlong } from '../../../../util/ValidationRules';
+import { required, mustBeNumber, mustbe5long } from '../../../../util/ValidationRules';
 
 import './AddressCheck.css'
 
@@ -37,7 +37,7 @@ class AddressCheck extends React.Component<InjectedFormProps> {
 
     this.props.change('strasse', responseAddress.route);
     this.props.change('hausnummer', responseAddress.street_number);
-    this.props.change('postleitzahl', responseAddress.postal_code);
+    this.props.change('postleitzahl', parseInt(responseAddress.postal_code));
     this.props.change('stadt', responseAddress.locality);
   }
 
@@ -74,7 +74,7 @@ class AddressCheck extends React.Component<InjectedFormProps> {
             </div>
             <div className="flex-container">
               <div style={{ width: '50%' }}>
-                <Field label="Postleitzahl" name="postleitzahl" component={this.renderInput} validate={[required, mustBeNumber, mustBeXlong(5)]} />
+                <Field label="Postleitzahl" name="postleitzahl" component={this.renderInput} validate={[required, mustBeNumber, mustbe5long]} />
               </div>
               <div style={{ width: '50%' }}>
                 <Field label="Stadt" name="stadt" component={this.renderInput} validate={[required]} />
