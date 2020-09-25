@@ -44,21 +44,21 @@ class Calculator extends React.Component<{}, CalculatorState> {
       }
 
     }
-    this.setState({ stromverbrauch: e.currentTarget.value });
+    this.setState({ stromverbrauch: e.currentTarget.value, errorMessage: '' });
     
   }
 
   onInputChange = (e: FormEvent<HTMLInputElement>) => {
 
 
-    const error = mustBeNumber(parseInt(e.currentTarget.value));
+    const error = mustBeNumber(e.currentTarget.value);
     this.setState({ errorMessage: error ? error : '' });
     this.setState({ stromverbrauch: e.currentTarget.value });
   }
 
   componentDidUpdate() {
-    console.log(this.state.stromverbrauch);
-    console.log(this.state.errorMessage);
+   if (!this.state.errorMessage)
+    console.log('call the api');
     
   }
 
