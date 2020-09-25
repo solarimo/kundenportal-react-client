@@ -1,55 +1,64 @@
-import React, { MouseEvent } from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import React from 'react';
+import { Field, InjectedFormProps, reduxForm, change } from 'redux-form';
+import { connect } from 'react-redux';
 
 import './Calculator.css';
 
-class Calculator extends React.Component<InjectedFormProps> {
+interface OwnProps{
+  change: any
+}
 
-  onChange() {
-    console.log('changed');
+type CalculatorProps = OwnProps & InjectedFormProps
 
-  }
+const renderIconInput = ({ input, id }: any) => {
+  const numOfPersons = parseInt(input.value[1]);
+  
+  return (
+    <div>
+      <label className={numOfPersons >= parseInt(id[1]) ? 'active-person-label' : ''}  htmlFor={id}>
+        <img src={'/icon_person.png'} alt="person-img" width="70" />
+      </label>
+      <input {...input} type="radio" id={id} value={id} name="person-amount" />
+    </div>
+  )
+}
 
-  renderIconInput = ({ input, id }: any) => {
-    return (
-      <div>
-        <label htmlFor={id}>
-          <img src={'/icon_person.png'} alt="person-img" width="70" />
-        </label>
-        <input {...input} type="radio" id={id} value={id} name="person-amount" />
-      </div>
-    )
-  }
+const onSubmit = () => {
 
-  render() {
+}
+
+const onChange = (change: any) => {
+  change('register', 'stromverbrauch', 'hshdfksdf')
+}
+
+const Calculator = (props: CalculatorProps) => {
+
     return (
       <div className="calc">
-        <form onChange={this.onChange}>
+        <form onChange={() => onChange(props.change)} onSubmit={props.handleSubmit(onSubmit)}>
           <div className="calc-top">
             <div>
-              <p>Personsen im Haushalt</p>
+              <p className="mb-0">Personsen im Haushalt</p>
               <div className="flex-container">
-                <Field name="personen" id="p1" component={this.renderIconInput} />
-                <Field name="personen" id="p2" component={this.renderIconInput} />
-                <Field name="personen" id="p3" component={this.renderIconInput} />
-                <Field name="personen" id="p4" component={this.renderIconInput} />
-                <Field name="personen" id="p5" component={this.renderIconInput} />
+                <Field name="personen" id="p1" component={renderIconInput} />
+                <Field name="personen" id="p2" component={renderIconInput} />
+                <Field name="personen" id="p3" component={renderIconInput} />
+                <Field name="personen" id="p4" component={renderIconInput} />
+                <Field name="personen" id="p5" component={renderIconInput} />
               </div>
             </div>
             <div>
               <p>oder Stromverbrauch (kWh/Jahr)</p>
-              <input type="text" />
+              <Field name="stromverbrauch" component="input" />
             </div>
           </div>
           <div className="calc-bottom">
-
           </div>
         </form>
       </div>
     )
-  }
 }
 
 export default reduxForm({
   form: 'register'
-})(Calculator)
+})(connect(null, { change })(Calculator));

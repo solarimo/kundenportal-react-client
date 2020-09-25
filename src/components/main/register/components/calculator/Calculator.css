@@ -13,11 +13,19 @@
   
 }
 
-.active-person-label {
+.calc-top label.active-person-label {
   opacity: 1;
 }
 
 .calc-top label {
   opacity: 0.2;
   cursor: pointer;
+}
+
+.calc-top input[type="radio"] {
+  display: none;
+}
+
+.mb-0 {
+  margin-bottom: 0;
 }
