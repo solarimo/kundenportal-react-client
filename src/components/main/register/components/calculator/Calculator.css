@@ -29,3 +29,13 @@
 .mb-0 {
   margin-bottom: 0;
 }
+
+.person-img {
+  width: 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .person-img {
+    width: 50px;
+  }
+}
