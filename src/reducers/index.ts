@@ -5,29 +5,31 @@ import { ActionTypes, SetAddressAction } from '../actions';
 
 
 export interface StoreState {
-  address: AddressReducerState
+  userRegistration: UserRegistrationState
   form: any
 }
 
-interface AddressReducerState {
+export interface UserRegistrationState {
   address: Address;
-  valid: boolean
 }
 
-let initialState: AddressReducerState = {
+const initialState: UserRegistrationState = {
   address: {
     strasse: '',
     hausnummer: '',
-    postleitzahl: null,
-    stadt: ''
-  },
-  valid: false
+    postleitzahl: '',
+    stadt: '',
+    addressId: ''
+  }
 }
 
-const addressReducer = (state: AddressReducerState = initialState, action: SetAddressAction) => {
+const userRegistrationReducer = (state: UserRegistrationState = initialState, action: SetAddressAction): UserRegistrationState => {
   switch (action.type) {
     case ActionTypes.SET_ADDRESS:
-      return action.payload;
+      return {
+        ...state,
+        address: action.payload
+      };
   
     default:
       return state;
@@ -38,5 +40,5 @@ const addressReducer = (state: AddressReducerState = initialState, action: SetAd
 
 export const reducers = combineReducers<StoreState>({
   form: formReducer,
-  address: addressReducer
+  userRegistration: userRegistrationReducer
 });

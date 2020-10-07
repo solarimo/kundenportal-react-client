@@ -21,6 +21,7 @@ const Error = ({ message }: { message: string }) => {
   return <span style={{ color: 'red', fontSize: '10px' }} >{message}</span>;
 }
 
+
 class Calculator extends React.Component<{}, CalculatorState> {
 
   constructor(props: {}) {
@@ -45,8 +46,9 @@ class Calculator extends React.Component<{}, CalculatorState> {
 
     }
     this.setState({ stromverbrauch: e.currentTarget.value, errorMessage: '' });
-    
+
   }
+
 
   onInputChange = (e: FormEvent<HTMLInputElement>) => {
 
@@ -57,53 +59,53 @@ class Calculator extends React.Component<{}, CalculatorState> {
   }
 
   componentDidUpdate() {
-   if (!this.state.errorMessage)
-    console.log('call the api');
-    
+    if (!this.state.errorMessage)
+      console.log('call the api');
+
   }
 
-  render() { 
-    
+  render() {
+
     return (
-    <div className="calc">
-      <form>
-        <div className="calc-top">
-          <div>
-            <p className="mb-0">Personsen im Haushalt</p>
-            <div className="flex-container">
-              <label ref={labels.l1.ref} htmlFor="p1">
-                <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-              </label>
-              <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p1" value={1500} name="person-amount" />
-              <label ref={labels.l2.ref} htmlFor="p2">
-                <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-              </label>
-              <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p2" value={2500} name="person-amount" />
-              <label ref={labels.l3.ref} htmlFor="p3">
-                <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-              </label>
-              <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p3" value={3500} name="person-amount" />
-              <label ref={labels.l4.ref} htmlFor="p4">
-                <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-              </label>
-              <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p4" value={4250} name="person-amount" />
-              <label ref={labels.l5.ref} htmlFor="p5">
-                <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-              </label>
-              <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p5" value={5000} name="person-amount" />
+      <div className="calc">
+        <form>
+          <div className="calc-top">
+            <div>
+              <p className="mb-0">Personsen im Haushalt</p>
+              <div className="flex-container">
+                <label ref={labels.l1.ref} htmlFor="p1">
+                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                </label>
+                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p1" value={1500} name="person-amount" />
+                <label ref={labels.l2.ref} htmlFor="p2">
+                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                </label>
+                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p2" value={2500} name="person-amount" />
+                <label ref={labels.l3.ref} htmlFor="p3">
+                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                </label>
+                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p3" value={3500} name="person-amount" />
+                <label ref={labels.l4.ref} htmlFor="p4">
+                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                </label>
+                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p4" value={4250} name="person-amount" />
+                <label ref={labels.l5.ref} htmlFor="p5">
+                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                </label>
+                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p5" value={5000} name="person-amount" />
+              </div>
+            </div>
+            <div>
+              <p>oder Stromverbrauch (kWh/Jahr)</p>
+              <input className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
+              {this.state.errorMessage && <Error message={this.state.errorMessage} />}
             </div>
           </div>
-          <div>
-            <p>oder Stromverbrauch (kWh/Jahr)</p>
-            <input className={ this.state.errorMessage ? 'field-error' : '' } value={this.state.stromverbrauch} onChange={this.onInputChange} />
-            { this.state.errorMessage && <Error message={this.state.errorMessage} /> }
+          <div className="calc-bottom">
           </div>
-        </div>
-        <div className="calc-bottom">
-        </div>
-      </form>
-    </div>
-  )
+        </form>
+      </div>
+    )
   }
 }
 

@@ -21,7 +21,6 @@ button {
     padding: 15px;
     background-color: #fdc300;
     text-transform: uppercase;
-    outline: none;
     transition: all 0.2s linear;
     font-size: 16px;
   }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-
 import { PrimaryButton } from '../../../global-components/PrimaryButton';
 import { required, mustBeNumber, mustbe5long } from '../../../../util/ValidationRules';
-
 import './AddressCheck.css'
+import { connect } from 'react-redux';
+import { StoreState } from '../../../../../reducers';
+import { setAddress, Address } from '../../../../../actions';
+import backend from '../../../../../api/backend';
 
 
 class GoogleResponseAddress {
@@ -14,7 +16,23 @@ class GoogleResponseAddress {
   route: string = '';
 }
 
-class AddressCheck extends React.Component<InjectedFormProps> {
+interface BackendResponse {
+  addressId: string | null;
+}
+
+interface IFormProps {
+  strasse: string;
+  hausnummer: string;
+  postleitzahl: string;
+  stadt: string;
+}
+
+interface AddressCheckProps {
+  setAddress: (address: Address) => void;
+  address: Address
+}
+
+class _AddressCheck extends React.Component<InjectedFormProps<IFormProps, AddressCheckProps> & AddressCheckProps> {
 
   private autocomplete: google.maps.places.Autocomplete | null = null;
 
@@ -37,7 +55,7 @@ class AddressCheck extends React.Component<InjectedFormProps> {
 
     this.props.change('strasse', responseAddress.route);
     this.props.change('hausnummer', responseAddress.street_number);
-    this.props.change('postleitzahl', parseInt(responseAddress.postal_code));
+    this.props.change('postleitzahl', responseAddress.postal_code);
     this.props.change('stadt', responseAddress.locality);
   }
 
@@ -51,9 +69,23 @@ class AddressCheck extends React.Component<InjectedFormProps> {
     );
   }
 
-  onSubmit = (formValues: any) => {
+  onSubmit = async (formValues: IFormProps) => {
+    const { data } = await backend.post<BackendResponse>('/register/validate-address', {
+      'strasse': formValues.strasse,
+      'hausnummer': formValues.hausnummer,
+      'postleitzahl': formValues.postleitzahl,
+      'stadt': formValues.stadt
+    });
+
+    if (!data.addressId) {
+      alert('sorry no address');
+    }
+
+  
+    
     
   }
+
 
   render() {
     return (
@@ -90,7 +122,12 @@ class AddressCheck extends React.Component<InjectedFormProps> {
     );
   }
 }
+const mapStateToProps = ({ userRegistration }: StoreState) => {
+  return { address: userRegistration.address };
+}
 
-export default reduxForm({
+const AddressCheck = connect(mapStateToProps, { setAddress })(_AddressCheck);
+
+export default reduxForm<IFormProps, AddressCheckProps>({
   form: 'address'
 })(AddressCheck);
