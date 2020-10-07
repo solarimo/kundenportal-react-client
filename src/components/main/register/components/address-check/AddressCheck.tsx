@@ -36,6 +36,7 @@ interface AddressCheckState {
 interface OwnProps {
   setAddress: (address: Address) => void;
   address: Address
+  history: any
 }
 
 type AddressCheckProps = InjectedFormProps<IFormProps, OwnProps> & OwnProps;
@@ -84,13 +85,13 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
     );
   }
 
-  onSubmit = async (formValues: IFormProps) => {
+  onSubmit = async ({ strasse, hausnummer, postleitzahl, stadt }: IFormProps) => {
     this.setState({ fetching: true });
     const { data } = await backend.post<BackendResponse>('/register/validate-address', {
-      'strasse': formValues.strasse,
-      'hausnummer': formValues.hausnummer,
-      'postleitzahl': formValues.postleitzahl,
-      'stadt': formValues.stadt
+      'strasse': strasse,
+      'hausnummer': hausnummer,
+      'postleitzahl': postleitzahl,
+      'stadt': stadt
     });
     this.setState({ fetching: false });
 
@@ -99,6 +100,16 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
       return;
     }
     
+    this.props.setAddress({
+      strasse,
+      hausnummer,
+      postleitzahl,
+      stadt,
+      addressId: data.addressId
+    });
+
+    console.log(this.props);
+    this.props.history.push('/register/ihr-tarif');
     
   }
 
