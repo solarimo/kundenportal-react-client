@@ -1,4 +1,7 @@
 import React, { FormEvent, useState, createRef, useEffect } from 'react';
+import { connect } from 'react-redux';
+import backend from '../../../../../api/backend';
+import { StoreState } from '../../../../../reducers';
 import { mustBeNumber } from '../../../../util/ValidationRules';
 
 import './Calculator.css';
@@ -12,9 +15,26 @@ const labels: { [key: string]: { ref: React.RefObject<HTMLLabelElement>, value: 
   l5: { ref: createRef<HTMLLabelElement>(), value: 5 },
 }
 
+const input = createRef<HTMLInputElement>();
+
 interface CalculatorState {
   stromverbrauch: string;
   errorMessage: string;
+  values: BackendResponse;
+}
+
+interface OwnProps {
+  addressId: string;
+}
+
+interface BackendResponse {
+  stromverbrauch?: number;
+  monatlAbschlag?: number;
+  ersparnisPerYear?: number;
+  ersparnisC02Kg?: number;
+  grundpreis?: number;
+  arbeitspreis?: number;
+
 }
 
 const Error = ({ message }: { message: string }) => {
@@ -22,13 +42,14 @@ const Error = ({ message }: { message: string }) => {
 }
 
 
-class Calculator extends React.Component<{}, CalculatorState> {
+class _Calculator extends React.Component<OwnProps, CalculatorState> {
 
-  constructor(props: {}) {
+  constructor(props: OwnProps) {
     super(props);
     this.state = {
       stromverbrauch: '',
-      errorMessage: ''
+      errorMessage: '',
+      values: {}
     }
   }
 
@@ -57,18 +78,27 @@ class Calculator extends React.Component<{}, CalculatorState> {
     this.setState({ errorMessage: error ? error : '' });
     this.setState({ stromverbrauch: e.currentTarget.value });
   }
+  
 
-  componentDidUpdate() {
-    if (!this.state.errorMessage)
-      console.log('call the api');
-
+  onChange(val: FormEvent<HTMLFormElement>) {
+      this.setState((state: CalculatorState) => {
+        if (!state.errorMessage) {
+          backend.post<BackendResponse>('/register/calculate', {
+            addressId: this.props.addressId,
+            stromverbrauch: parseInt(state.stromverbrauch)
+          })
+          .then(({ data }) => {  
+            console.log(data);
+            this.setState({ values: data }) })
+        }
+      });
   }
 
   render() {
 
     return (
       <div className="calc">
-        <form>
+        <form onChange={this.onChange.bind(this)}>
           <div className="calc-top">
             <div>
               <p className="mb-0">Personsen im Haushalt</p>
@@ -97,16 +127,44 @@ class Calculator extends React.Component<{}, CalculatorState> {
             </div>
             <div>
               <p>oder Stromverbrauch (kWh/Jahr)</p>
-              <input className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
+              <input ref={input} id="input" className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
               {this.state.errorMessage && <Error message={this.state.errorMessage} />}
             </div>
           </div>
           <div className="calc-bottom">
           </div>
         </form>
+        <div className="calc-bottom">
+          <div className="abschlag-box">
+            <p>Ihr monatlicher Abschlag: </p>
+            <h1><span>{this.state.values.monatlAbschlag}</span>,- €</h1>
+          </div>
+          <div>
+            <h2>ZUSAMMENGESETZT AUS: </h2>
+            <p>
+              Abnahmemenge: <strong><span>{this.state.values.stromverbrauch}</span> kWh</strong><br />
+              Arbeitspreis: <strong><span>{this.state.values.arbeitspreis}</span> Cent/kWh</strong><br />
+              Grundpreis: <strong><span>{this.state.values.grundpreis}</span> €/Monat</strong><br />
+            </p>
+          </div>
+          <div>
+            <h2>SIE SPAREN: </h2>
+            <p>
+              Jährliche Ersparnis: * <strong><span>{this.state.values.ersparnisPerYear}</span>,- €</strong><br />
+              CO₂ - Ersparnis pro Jahr: <strong><span>{this.state.values.ersparnisC02Kg}</span> kg</strong><br />
+            </p>
+          </div>
+          <div>
+
+          </div>
+        </div>
       </div>
     )
   }
 }
 
-export default Calculator;
+const mapStateToProps = ({ userRegistration }: StoreState) => {
+  return { addressId: userRegistration.address.addressId }
+}
+
+export const Calculator = connect(mapStateToProps, null)(_Calculator);

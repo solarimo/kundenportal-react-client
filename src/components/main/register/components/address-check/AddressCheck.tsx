@@ -108,7 +108,6 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
       addressId: data.addressId
     });
 
-    console.log(this.props);
     this.props.history.push('/register/ihr-tarif');
     
   }
@@ -140,7 +139,7 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
               </div>
             </div>
             <div className="flex-btn">
-              <PrimaryButton content="Zu Ihrem Tarif" showSpinner={this.state.fetching} />
+              <PrimaryButton disabled={ this.props.pristine || this.props.submitting } content="Zu Ihrem Tarif" showSpinner={this.state.fetching} />
             </div>
           </div>
 

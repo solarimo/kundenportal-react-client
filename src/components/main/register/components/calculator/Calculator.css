@@ -1,3 +1,18 @@
+.calc {
+  border: solid 5px #2C3F46;
+}
+
+.abschlag-box {
+  background-color: #586A73;
+  color: #ffffff;
+  padding: 9px 20px 0 20px;
+}
+
+.calc-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
 .calc-top p {
   color: #FDC300;

@@ -6,12 +6,13 @@ import './global-components.css';
 interface PrimaryButtonProps {
   content: string;
   showSpinner: boolean;
+  disabled: boolean;
 }
 
 
 export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = (props: PrimaryButtonProps): JSX.Element => {
   return (
-    <button type="submit">
+    <button disabled={props.disabled} type="submit">
       <div className="btn-flex-content">
       {props.content}
       { props.showSpinner &&
