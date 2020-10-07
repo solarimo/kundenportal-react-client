@@ -7,8 +7,7 @@ import { connect } from 'react-redux';
 import { StoreState } from '../../../../../reducers';
 import { setAddress, Address } from '../../../../../actions';
 import backend from '../../../../../api/backend';
-import { Snackbar } from '@material-ui/core';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import { CustomSnackbar } from '../../../global-components/CustomSnackbar';
 
 
 class GoogleResponseAddress {
@@ -41,9 +40,6 @@ interface OwnProps {
 
 type AddressCheckProps = InjectedFormProps<IFormProps, OwnProps> & OwnProps;
 
-const Alert = (props: AlertProps) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState> {
 
@@ -138,12 +134,7 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
           </div>
 
         </form>
-        <Snackbar
-          open={this.state.showErrorSnackBar}
-          autoHideDuration={3000}
-          onClose={() => this.setState({ showErrorSnackBar: false })}>
-            <Alert severity="error">Oops... Leider nicht verfügbar!</Alert>
-        </Snackbar>
+        <CustomSnackbar show={this.state.showErrorSnackBar} onClose={() => this.setState({ showErrorSnackBar: false })} />
       </div>
     );
   }
