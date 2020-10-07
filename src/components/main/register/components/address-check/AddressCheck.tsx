@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { StoreState } from '../../../../../reducers';
 import { setAddress, Address } from '../../../../../actions';
 import backend from '../../../../../api/backend';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 
 class GoogleResponseAddress {
@@ -27,12 +29,29 @@ interface IFormProps {
   stadt: string;
 }
 
-interface AddressCheckProps {
+interface AddressCheckState {
+  fetching: boolean;
+  showErrorSnackBar: boolean;
+}
+
+interface OwnProps {
   setAddress: (address: Address) => void;
   address: Address
 }
 
-class _AddressCheck extends React.Component<InjectedFormProps<IFormProps, AddressCheckProps> & AddressCheckProps> {
+type AddressCheckProps = InjectedFormProps<IFormProps, OwnProps> & OwnProps;
+
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState> {
+
+  constructor(props: AddressCheckProps) {
+    super(props);
+
+    this.state = { fetching: false, showErrorSnackBar: false };
+  }
 
   private autocomplete: google.maps.places.Autocomplete | null = null;
 
@@ -70,18 +89,19 @@ class _AddressCheck extends React.Component<InjectedFormProps<IFormProps, Addres
   }
 
   onSubmit = async (formValues: IFormProps) => {
+    this.setState({ fetching: true });
     const { data } = await backend.post<BackendResponse>('/register/validate-address', {
       'strasse': formValues.strasse,
       'hausnummer': formValues.hausnummer,
       'postleitzahl': formValues.postleitzahl,
       'stadt': formValues.stadt
     });
+    this.setState({ fetching: false });
 
     if (!data.addressId) {
-      alert('sorry no address');
+      this.setState({ showErrorSnackBar: true })
+      return;
     }
-
-  
     
     
   }
@@ -113,11 +133,17 @@ class _AddressCheck extends React.Component<InjectedFormProps<IFormProps, Addres
               </div>
             </div>
             <div className="flex-btn">
-              <PrimaryButton text="Zu Ihrem Tarif" />
+              <PrimaryButton content="Zu Ihrem Tarif" showSpinner={this.state.fetching} />
             </div>
           </div>
 
         </form>
+        <Snackbar
+          open={this.state.showErrorSnackBar}
+          autoHideDuration={3000}
+          onClose={() => this.setState({ showErrorSnackBar: false })}>
+            <Alert severity="error">Oops... Leider nicht verfügbar!</Alert>
+        </Snackbar>
       </div>
     );
   }

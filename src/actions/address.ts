@@ -1,5 +1,3 @@
-import { Dispatch } from "redux";
-import backend from "../api/backend";
 
 export interface Address {
   strasse: string;

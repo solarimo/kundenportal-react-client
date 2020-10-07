@@ -2,12 +2,13 @@
 
 body {
     margin: 0;
+    color: #304148;
    
 }
 
 * {
     font-family: 'Raleway', sans-serif;
-    color: #304148;
+    
 }
 
 hr {
