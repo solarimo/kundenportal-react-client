@@ -5,7 +5,22 @@
 .abschlag-box {
   background-color: #586A73;
   color: #ffffff;
-  padding: 9px 20px 0 20px;
+}
+
+.calc-bottom div {
+  padding: 20px;
+}
+
+.calc-datastate-pristine {
+  margin: 50px auto;
+  text-align: center;
+
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .calc-bottom {
@@ -13,6 +28,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+
 
 .calc-top p {
   color: #FDC300;
@@ -47,6 +64,12 @@
 
 .person-img {
   width: 70px;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,8 +1,11 @@
+import { CircularProgress } from '@material-ui/core';
 import React, { FormEvent, useState, createRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import backend from '../../../../../api/backend';
 import { StoreState } from '../../../../../reducers';
 import { mustBeNumber } from '../../../../util/ValidationRules';
+import { NavigationButton } from '../../../global-components/NavigationButton';
+import { PrimaryButton } from '../../../global-components/PrimaryButton';
 
 import './Calculator.css';
 
@@ -21,6 +24,7 @@ interface CalculatorState {
   stromverbrauch: string;
   errorMessage: string;
   values: BackendResponse;
+  dataState: DataState;
 }
 
 interface OwnProps {
@@ -37,6 +41,12 @@ interface BackendResponse {
 
 }
 
+enum DataState {
+  PRISTINE,
+  LOADING,
+  SHOW
+}
+
 const Error = ({ message }: { message: string }) => {
   return <span style={{ color: 'red', fontSize: '10px' }} >{message}</span>;
 }
@@ -49,7 +59,8 @@ class _Calculator extends React.Component<OwnProps, CalculatorState> {
     this.state = {
       stromverbrauch: '',
       errorMessage: '',
-      values: {}
+      values: {},
+      dataState: DataState.PRISTINE
     }
   }
 
@@ -78,85 +89,114 @@ class _Calculator extends React.Component<OwnProps, CalculatorState> {
     this.setState({ errorMessage: error ? error : '' });
     this.setState({ stromverbrauch: e.currentTarget.value });
   }
-  
+
 
   onChange(val: FormEvent<HTMLFormElement>) {
-      this.setState((state: CalculatorState) => {
-        if (!state.errorMessage) {
-          backend.post<BackendResponse>('/register/calculate', {
-            addressId: this.props.addressId,
-            stromverbrauch: parseInt(state.stromverbrauch)
+    this.setState((state: CalculatorState) => {
+      if (!state.errorMessage) {
+        this.setState({ dataState: DataState.LOADING });
+        backend.post<BackendResponse>('/register/calculate', {
+          addressId: this.props.addressId,
+          stromverbrauch: parseInt(state.stromverbrauch)
+        })
+          .then(({ data }) => {
+            this.setState({ values: data, dataState: DataState.SHOW })
           })
-          .then(({ data }) => {  
-            console.log(data);
-            this.setState({ values: data }) })
-        }
-      });
+      }
+    });
+  }
+
+  renderBottom = (): JSX.Element => {
+    console.log(this.state.dataState);
+    switch (this.state.dataState) {
+      
+      
+      case DataState.PRISTINE:
+        return (
+          <div>
+            <h3 className="calc-datastate-pristine">Bitte schätzen sie Ihren Stromverbrauch</h3>
+          </div>
+        );
+      case DataState.LOADING:
+        return (
+          <div className="flex-center">
+            <CircularProgress className="calc-datastate-pristine" />
+          </div>
+        )
+      case DataState.SHOW:
+        return (
+          <div className="calc-bottom">
+            <div className="abschlag-box">
+              <p>Ihr monatlicher Abschlag: </p>
+              <h1><span>{this.state.values.monatlAbschlag}</span>,- €</h1>
+            </div>
+            <div>
+              <h2>ZUSAMMENGESETZT AUS: </h2>
+              <p>
+                Abnahmemenge: <strong><span>{this.state.values.stromverbrauch}</span> kWh</strong><br />
+                Arbeitspreis: <strong><span>{this.state.values.arbeitspreis}</span> Cent/kWh</strong><br />
+                Grundpreis: <strong><span>{this.state.values.grundpreis}</span> €/Monat</strong><br />
+              </p>
+            </div>
+            <div>
+              <h2>SIE SPAREN: </h2>
+              <p>
+                Jährliche Ersparnis: * <strong><span>{this.state.values.ersparnisPerYear}</span>,- €</strong><br />
+              CO₂ - Ersparnis pro Jahr: <strong><span>{this.state.values.ersparnisC02Kg}</span> kg</strong><br />
+              </p>
+            </div>
+          </div>
+        );
+    }
+
   }
 
   render() {
 
     return (
-      <div className="calc">
-        <form onChange={this.onChange.bind(this)}>
-          <div className="calc-top">
-            <div>
-              <p className="mb-0">Personsen im Haushalt</p>
-              <div className="flex-container">
-                <label ref={labels.l1.ref} htmlFor="p1">
-                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-                </label>
-                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p1" value={1500} name="person-amount" />
-                <label ref={labels.l2.ref} htmlFor="p2">
-                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-                </label>
-                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p2" value={2500} name="person-amount" />
-                <label ref={labels.l3.ref} htmlFor="p3">
-                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-                </label>
-                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p3" value={3500} name="person-amount" />
-                <label ref={labels.l4.ref} htmlFor="p4">
-                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-                </label>
-                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p4" value={4250} name="person-amount" />
-                <label ref={labels.l5.ref} htmlFor="p5">
-                  <img src={'/icon_person.png'} alt="person-img" className="person-img" />
-                </label>
-                <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p5" value={5000} name="person-amount" />
+      <div>
+        <div className="calc">
+          <form onChange={this.onChange.bind(this)}>
+            <div className="calc-top">
+              <div>
+                <p className="mb-0">Personsen im Haushalt</p>
+                <div className="flex-container">
+                  <label ref={labels.l1.ref} htmlFor="p1">
+                    <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                  </label>
+                  <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p1" value={1500} name="person-amount" />
+                  <label ref={labels.l2.ref} htmlFor="p2">
+                    <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                  </label>
+                  <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p2" value={2500} name="person-amount" />
+                  <label ref={labels.l3.ref} htmlFor="p3">
+                    <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                  </label>
+                  <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p3" value={3500} name="person-amount" />
+                  <label ref={labels.l4.ref} htmlFor="p4">
+                    <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                  </label>
+                  <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p4" value={4250} name="person-amount" />
+                  <label ref={labels.l5.ref} htmlFor="p5">
+                    <img src={'/icon_person.png'} alt="person-img" className="person-img" />
+                  </label>
+                  <input onClick={this.setStromverbrauchByPersonen} type="radio" id="p5" value={5000} name="person-amount" />
+                </div>
+              </div>
+              <div>
+                <p>oder Stromverbrauch (kWh/Jahr)</p>
+                <input ref={input} id="input" className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
+                {this.state.errorMessage && <Error message={this.state.errorMessage} />}
               </div>
             </div>
-            <div>
-              <p>oder Stromverbrauch (kWh/Jahr)</p>
-              <input ref={input} id="input" className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
-              {this.state.errorMessage && <Error message={this.state.errorMessage} />}
+            <div className="calc-bottom">
             </div>
-          </div>
-          <div className="calc-bottom">
-          </div>
-        </form>
-        <div className="calc-bottom">
-          <div className="abschlag-box">
-            <p>Ihr monatlicher Abschlag: </p>
-            <h1><span>{this.state.values.monatlAbschlag}</span>,- €</h1>
-          </div>
-          <div>
-            <h2>ZUSAMMENGESETZT AUS: </h2>
-            <p>
-              Abnahmemenge: <strong><span>{this.state.values.stromverbrauch}</span> kWh</strong><br />
-              Arbeitspreis: <strong><span>{this.state.values.arbeitspreis}</span> Cent/kWh</strong><br />
-              Grundpreis: <strong><span>{this.state.values.grundpreis}</span> €/Monat</strong><br />
-            </p>
-          </div>
-          <div>
-            <h2>SIE SPAREN: </h2>
-            <p>
-              Jährliche Ersparnis: * <strong><span>{this.state.values.ersparnisPerYear}</span>,- €</strong><br />
-              CO₂ - Ersparnis pro Jahr: <strong><span>{this.state.values.ersparnisC02Kg}</span> kg</strong><br />
-            </p>
-          </div>
-          <div>
-
-          </div>
+          </form>
+          {this.renderBottom()}
+        </div>
+        <div className="btns">
+          <NavigationButton to="/register/verfuegbarkeit" disabled={false} content="ZURÜCK" showSpinner={false} />
+          <PrimaryButton disabled={false} content="WEITER" showSpinner={false} />
         </div>
       </div>
     )
