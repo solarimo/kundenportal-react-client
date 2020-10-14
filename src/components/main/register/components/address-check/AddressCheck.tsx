@@ -8,6 +8,7 @@ import { StoreState } from '../../../../../reducers';
 import { setAddress, Address } from '../../../../../actions';
 import backend from '../../../../../api/backend';
 import { CustomSnackbar } from '../../../global-components/CustomSnackbar';
+import { renderInput } from '../../../../util/renderField';
 
 
 class GoogleResponseAddress {
@@ -75,16 +76,6 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
     this.props.change('stadt', responseAddress.locality);
   }
 
-  renderInput({label, input, meta}: any) {
-    return (
-      <div>
-        <label>{label}</label>
-        <input className={(meta.touched && meta.error) ? 'field-error' : '' } {...input} type="text" />
-    {(meta.touched && meta.error) &&  <span style={{ color: 'red', fontSize: '10px' }} >{meta.error}</span> }
-      </div>
-    );
-  }
-
   onSubmit = async ({ strasse, hausnummer, postleitzahl, stadt }: IFormProps) => {
     this.setState({ fetching: true });
     const { data } = await backend.post<BackendResponse>('/register/validate-address', {
@@ -124,18 +115,18 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
             <br />
             <div className="flex-container">
               <div style={{ width: '75%' }}>
-                <Field label="Straße" name="strasse" component={this.renderInput} validate={[required]}  />
+                <Field label="Straße" name="strasse" component={renderInput} validate={[required]}  />
               </div>
               <div style={{ width: '25%' }}>
-                <Field label="Hausnummer" name="hausnummer" component={this.renderInput} validate={[required]} />
+                <Field label="Hausnummer" name="hausnummer" component={renderInput} validate={[required]} />
               </div>
             </div>
             <div className="flex-container">
               <div style={{ width: '50%' }}>
-                <Field label="Postleitzahl" name="postleitzahl" component={this.renderInput} validate={[required, mustBeNumber, mustbe5long]} />
+                <Field label="Postleitzahl" name="postleitzahl" component={renderInput} validate={[required, mustBeNumber, mustbe5long]} />
               </div>
               <div style={{ width: '50%' }}>
-                <Field label="Stadt" name="stadt" component={this.renderInput} validate={[required]} />
+                <Field label="Stadt" name="stadt" component={renderInput} validate={[required]} />
               </div>
             </div>
             <div className="flex-btn">

@@ -1,5 +1,5 @@
 import { CircularProgress } from '@material-ui/core';
-import React, { FormEvent, useState, createRef, useEffect } from 'react';
+import React, { FormEvent, createRef } from 'react';
 import { connect } from 'react-redux';
 import backend from '../../../../../api/backend';
 import { StoreState } from '../../../../../reducers';
@@ -107,7 +107,6 @@ class _Calculator extends React.Component<OwnProps, CalculatorState> {
   }
 
   renderBottom = (): JSX.Element => {
-    console.log(this.state.dataState);
     switch (this.state.dataState) {
       
       
