@@ -1,7 +1,7 @@
 import React from 'react';
 import { isPropertySignature } from 'typescript';
 
-export interface Value {
+export interface Option {
   value: string;
   displayed: string;
 }
@@ -16,13 +16,13 @@ export function renderInput({ label, input, meta, hintText, type }: any) {
   );
 }
 
-export function renderSelect({ label, input, meta, values }: any) {
+export function renderSelect({ label, input, meta, options }: any) {
   return (
     <div>
       <label>{label}</label>
       <select className={(meta.touched && meta.error) ? 'field-error' : ''} {...input}>
         <option></option>
-        {renderOptions(values as Value[])}
+        {renderOptions(options as Option[])}
       </select>
       
       
@@ -32,8 +32,8 @@ export function renderSelect({ label, input, meta, values }: any) {
 }
 
 
-function renderOptions(values: Value[]) {
-  return values.map(value => {
-    return <option key={value.value} value={value.value}>{value.displayed}</option>
+function renderOptions(values: Option[]) {
+  return values.map(option => {
+    return <option key={option.value} value={option.value}>{option.displayed}</option>
   });
 }

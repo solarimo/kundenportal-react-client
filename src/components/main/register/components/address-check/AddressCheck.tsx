@@ -22,7 +22,7 @@ interface BackendResponse {
   addressId: string | null;
 }
 
-interface IFormProps {
+interface Values {
   strasse: string;
   hausnummer: string;
   postleitzahl: string;
@@ -40,7 +40,7 @@ interface OwnProps {
   history: any
 }
 
-type AddressCheckProps = InjectedFormProps<IFormProps, OwnProps> & OwnProps;
+type AddressCheckProps = InjectedFormProps<Values, OwnProps> & OwnProps;
 
 
 class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState> {
@@ -76,7 +76,7 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
     this.props.change('stadt', responseAddress.locality);
   }
 
-  onSubmit = async ({ strasse, hausnummer, postleitzahl, stadt }: IFormProps) => {
+  onSubmit = async ({ strasse, hausnummer, postleitzahl, stadt }: Values) => {
     this.setState({ fetching: true });
     const { data } = await backend.post<BackendResponse>('/register/validate-address', {
       'strasse': strasse,
@@ -146,6 +146,6 @@ const mapStateToProps = ({ userRegistration }: StoreState) => {
 
 const AddressCheck = connect(mapStateToProps, { setAddress })(_AddressCheck);
 
-export default reduxForm<IFormProps, AddressCheckProps>({
+export default reduxForm<Values, AddressCheckProps>({
   form: 'address'
 })(AddressCheck);

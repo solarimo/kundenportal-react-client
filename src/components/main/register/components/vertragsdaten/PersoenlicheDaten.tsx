@@ -1,7 +1,7 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Field, FormErrors, FormProps, InjectedFormProps, reduxForm } from 'redux-form';
-import { renderInput, renderSelect, Value } from '../../../../util/renderField';
-import { germanBirthdate, isEmail, isPhonenumber, required } from '../../../../util/ValidationRules';
+import { renderInput, renderSelect, Option } from '../../../../util/renderField';
+import { isDate, isEmail, isPhonenumber, pastDate, required } from '../../../../util/ValidationRules';
 import { NavigationButton } from '../../../global-components/NavigationButton';
 import { PrimaryButton } from '../../../global-components/PrimaryButton';
 
@@ -23,13 +23,13 @@ interface OwnProps {
 
 type Props = InjectedFormProps<Values, OwnProps> & OwnProps;
 
-const anreden: Value[] = [
+const anreden: Option[] = [
   { value: 'HERR', displayed: 'Herr' },
   { value: 'FRAU', displayed: 'Frau' },
   { value: 'DIVERS', displayed: 'Divers' }
 ]
 
-const titles: Value[] = [
+const titles: Option[] = [
   { value: 'DR', displayed: 'Dr.' },
   { value: 'PROF', displayed: 'Prof.' },
   { value: 'PROF_DR', displayed: 'Prof. Dr.' }
@@ -53,11 +53,11 @@ const _PersoenlicheDaten: FunctionComponent<Props> = (props: Props) => {
       <h2>PERSÖNLICHE ANGABEN</h2>
       <p>Damit wir Ihren Vertrag aufsetzen können, benötigen wir einige Informationen von Ihnen. Im darauffolgenden Schritt können Sie Ihre Angaben noch einmal überprüfen.</p>
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
-        <Field name="anrede" label="Anrede" component={renderSelect} values={anreden} validate={[required]} />
-        <Field name="titel" label="Titel" component={renderSelect} values={titles} />
+        <Field name="anrede" label="Anrede" component={renderSelect} options={anreden} validate={[required]} />
+        <Field name="titel" label="Titel" component={renderSelect} options={titles} />
         <Field name="vorname" label="Vorname" component={renderInput} validate={[required]} />
         <Field name="nachname" label="Nachname" component={renderInput} validate={[required]} />  
-        <Field name="geburtsdatum" hintText="TT.MM.JJJJ" label="Geburtsdatum" component={renderInput} validate={[required, germanBirthdate]} />
+        <Field name="geburtsdatum" hintText="TT.MM.JJJJ" label="Geburtsdatum" component={renderInput} validate={[required, isDate, pastDate]} />
         <Field name="telefonnummer" label="Telefonnummer" component={renderInput} validate={[required, isPhonenumber]} />
         <Field name="email" label="Email-Adresse" component={renderInput} validate={[required, isEmail]} />
         <Field name="password" type="password" label="Passwort" component={renderInput} validate={[required]} />
