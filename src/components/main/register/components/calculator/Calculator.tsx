@@ -5,7 +5,6 @@ import backend from '../../../../../api/backend';
 import { StoreState } from '../../../../../reducers';
 import { mustBeNumber } from '../../../../util/ValidationRules';
 import { NavigationButton } from '../../../global-components/NavigationButton';
-import { PrimaryButton } from '../../../global-components/PrimaryButton';
 
 import './Calculator.css';
 
@@ -195,7 +194,7 @@ class _Calculator extends React.Component<OwnProps, CalculatorState> {
         </div>
         <div className="btns">
           <NavigationButton to="/register/verfuegbarkeit" disabled={false} content="ZURÜCK" showSpinner={false} />
-          <PrimaryButton disabled={false} content="WEITER" showSpinner={false} />
+          <NavigationButton to="/register/vertragsdaten" disabled={!!this.state.errorMessage || !this.state.stromverbrauch} content="WEITER" showSpinner={false} />
         </div>
       </div>
     )

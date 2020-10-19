@@ -14,7 +14,7 @@ interface NavigationButtonProps {
 
 export const NavigationButton: FunctionComponent<NavigationButtonProps> = (props: NavigationButtonProps): JSX.Element => {
   return (
-    <Link to={props.to}>
+    <Link  to={props.disabled ? '#' : props.to}>
     <button disabled={props.disabled} type="submit">
       <div className="btn-flex-content">
       {props.content}
