@@ -5,11 +5,11 @@ export interface Option {
   displayed: string;
 }
 
-export function renderInput({ onInput ,disabled, label, input, meta, hintText, type }: any) {
+export function renderInput({ onInput ,hidden, label, input, meta, hintText, type }: any) {  
   return (
     <div>
       <label>{label}</label>
-      <input  onInput={onInput} disabled={disabled || false} className={(meta.touched && meta.error) ? 'field-error' : ''} {...input} type={type || 'text'} placeholder={hintText || ''} />
+      <input  onInput={onInput} hidden={hidden || false} className={(meta.touched && meta.error) ? 'field-error' : ''} {...input} type={type || 'text'} placeholder={hintText || ''} />
       {(meta.touched && meta.error) && <span style={{ color: 'red', fontSize: '10px' }} >{meta.error}</span>}
     </div>
   );

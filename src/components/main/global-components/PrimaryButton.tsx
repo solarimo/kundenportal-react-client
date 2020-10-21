@@ -17,7 +17,7 @@ export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = (props: Prim
     <button onClick={props.onClick} type={props.type || 'submit'} disabled={props.disabled || false}>
       <div className="btn-flex-content">
       {props.content}
-      { props.showSpinner || false &&
+      { props.showSpinner &&
         < CircularProgress size={30} style={{ marginLeft: '5px' }} />
       }
       </div>

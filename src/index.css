@@ -26,10 +26,15 @@ button {
     font-size: 16px;
   }
   
-  button:hover {
+button:hover {
     background-color: #304148;
     color: #ffffff;
-  }
+}
+
+button:disabled:hover {
+    background-color: #fdc300;
+    color: #304148;
+}
 
 .main {
     display: grid;

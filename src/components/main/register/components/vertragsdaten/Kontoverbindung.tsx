@@ -1,15 +1,19 @@
-import React, { FormEvent, FunctionComponent } from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import React, { FormEvent, FunctionComponent, useState } from 'react';
+import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 import backend from '../../../../../api/backend';
 import { renderInput } from '../../../../util/renderField';
 import { required } from '../../../../util/ValidationRules';
 import { PrimaryButton } from '../../../global-components/PrimaryButton';
 
-const openIBANUrl = (iban: string) => `https://openiban.com/validate/${iban}?getBIC=true&validateBankCode=true`;
 
 interface OwnProps {
   onBack: () => void;
   onSubmit: () => void;
+}
+
+interface BackendResponse {
+  valid: boolean;
+  bic?: string;
 }
 
 
@@ -23,8 +27,19 @@ type Props = InjectedFormProps<Values, OwnProps> & OwnProps;
 
 const _Kontoverbindung: FunctionComponent<Props> = (props: Props) => {
 
-  const onSubmit = (values: Values) => {
-    // backend.get(openIBANUrl(values.iban));
+  const [fetching, setFetching] = useState(false);
+
+  const onSubmit = async (values: Values) => {
+    setFetching(true);
+    const { data } = await backend.post<BackendResponse>('/register/validate-iban', {
+      iban: values.iban
+    });
+    setFetching(false);
+    if (!data.valid) {
+      throw new SubmissionError({ iban: 'ungültige IBAN' });
+    }
+    props.change('bic', data.bic);
+    props.onSubmit();
   }
 
   const onInput = (e: FormEvent<HTMLInputElement>) => {
@@ -44,10 +59,10 @@ const _Kontoverbindung: FunctionComponent<Props> = (props: Props) => {
       <form onSubmit={props.handleSubmit(onSubmit)} >
         <Field name="kontoinhaber" label="Kontoinhaber" component={renderInput} validate={[required]} />
         <Field onInput={onInput} name="iban" label="IBAN" component={renderInput} validate={[required]} />
-        <Field disabled={true} name="bic" label="BIC" component={renderInput} />
+        <Field name="bic" hidden={true} component={renderInput}/>
         <div className="btns">
           <PrimaryButton onClick={props.onBack} content="ZURÜCK" type="button" />
-          <PrimaryButton content="WEITER" />
+          <PrimaryButton showSpinner={fetching} content="WEITER" disabled={fetching} />
         </div>
       </form>
     </div>

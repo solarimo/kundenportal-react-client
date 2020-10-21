@@ -57,6 +57,14 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
     const input: HTMLInputElement = document.getElementById('address-input') as HTMLInputElement;
     this.autocomplete = new google.maps.places.Autocomplete(input);
     this.autocomplete.addListener('place_changed', this.setAddressFields);
+
+    if (this.props.address.addressId) {
+      this.props.change('strasse', this.props.address.strasse);
+      this.props.change('hausnummer', this.props.address.hausnummer);
+      this.props.change('postleitzahl', this.props.address.postleitzahl);
+      this.props.change('stadt', this.props.address.stadt);
+    }
+
   }
 
   setAddressFields = () => {
@@ -90,7 +98,7 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
       this.setState({ showErrorSnackBar: true })
       return;
     }
-    
+
     this.props.setAddress({
       strasse,
       hausnummer,
@@ -100,7 +108,7 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
     });
 
     this.props.history.push('/register/ihr-tarif');
-    
+
   }
 
 
@@ -111,11 +119,11 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div className="address-container">
             <label htmlFor="">Suchen Sie hier nach Ihrer Addresse</label>
-            <input id="address-input" type="text" placeholder=". . ."/>
+            <input id="address-input" type="text" placeholder=". . ." />
             <br />
             <div className="flex-container">
               <div style={{ width: '75%' }}>
-                <Field label="Straße" name="strasse" component={renderInput} validate={[required]}  />
+                <Field label="Straße" name="strasse" component={renderInput} validate={[required]} />
               </div>
               <div style={{ width: '25%' }}>
                 <Field label="Hausnummer" name="hausnummer" component={renderInput} validate={[required]} />
@@ -130,7 +138,7 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
               </div>
             </div>
             <div className="flex-btn">
-              <PrimaryButton disabled={ this.props.pristine || this.props.submitting } content="Zu Ihrem Tarif" showSpinner={this.state.fetching} />
+              <PrimaryButton disabled={this.props.pristine || this.props.submitting} content="Zu Ihrem Tarif" showSpinner={this.state.fetching} />
             </div>
           </div>
 
@@ -140,12 +148,16 @@ class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState
     );
   }
 }
+
+const AddressCheck = reduxForm<Values, OwnProps>({
+  form: 'address'
+})(_AddressCheck);
+
+
 const mapStateToProps = ({ userRegistration }: StoreState) => {
+
   return { address: userRegistration.address };
 }
 
-const AddressCheck = connect(mapStateToProps, { setAddress })(_AddressCheck);
+export default connect(mapStateToProps, { setAddress })(AddressCheck);
 
-export default reduxForm<Values, AddressCheckProps>({
-  form: 'address'
-})(AddressCheck);
