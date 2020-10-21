@@ -64,7 +64,7 @@ const _PersoenlicheDaten: FunctionComponent<Props> = (props: Props) => {
         <Field name="passwordRepeated" type="password" label="Passwort erneut eingeben" component={renderInput} validate={[required]} />
         <div className="btns">
           <NavigationButton to="/register/ihr-tarif" disabled={false} content="ZURÜCK" showSpinner={false} />
-          <PrimaryButton disabled={ props.pristine || props.submitting } content="WEITER" showSpinner={false} />
+          <PrimaryButton disabled={ props.pristine || props.submitting } content="WEITER" />
         </div>
       </form>
     </div>

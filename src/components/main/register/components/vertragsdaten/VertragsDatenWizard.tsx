@@ -2,7 +2,7 @@ import React from 'react';
 import { PersoenlicheDaten } from './PersoenlicheDaten';
 import { ZaehlerDaten } from './ZaehlerDaten';
 
-interface VertragsDatenWizardState {
+interface State {
   page: Page;
 }
 
@@ -11,12 +11,12 @@ enum Page {
   ZAEHLER_DATEN
 }
 
-export class VertragsDatenWizard extends React.Component<{}, VertragsDatenWizardState> {
+export class VertragsDatenWizard extends React.Component<{}, State> {
 
   constructor(props: {}) {
     super(props);
     this.state = {
-      page: Page.ZAEHLER_DATEN
+      page: Page.PERSOENLICHE_DATEN
     }
   }
 
@@ -28,14 +28,17 @@ export class VertragsDatenWizard extends React.Component<{}, VertragsDatenWizard
     this.setState({ page: this.state.page + 1 });
   }
 
+  prevPage = () => {
+    this.setState({page: this.state.page - 1});
+  }
+
   renderPage = () => {
-    console.log(this.state.page);
     
     switch(this.state.page) {
       case Page.PERSOENLICHE_DATEN:
         return <PersoenlicheDaten onSubmit={this.nextPage} />
       case Page.ZAEHLER_DATEN:
-        return <ZaehlerDaten />
+        return <ZaehlerDaten onBack={this.prevPage} onSubmit={this.nextPage} />
     }
   }
 

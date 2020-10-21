@@ -1,20 +1,17 @@
 import React, { FormEvent, FunctionComponent, useState, Fragment } from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, formValueSelector, InjectedFormProps, reduxForm } from 'redux-form';
 import { renderInput, renderSelect, Option } from '../../../../util/renderField';
 import { futureDate, isDate, required } from '../../../../util/ValidationRules';
 import { PrimaryButton } from '../../../global-components/PrimaryButton';
 
-interface Values {
-  type: string
-}
+
 
 enum Type {
-  ANBIETERWECHSEL, NEUEINZUG, NOT_SELECTED
+  ANBIETERWECHSEL = 'ANBIETERWECHSEL', NEUEINZUG='NEUEINZUG'
 }
 
-type TypeType = 'ANBIETERWECHSEL' | 'NEUEINZUG'
-
-interface State {
+interface Values {
   type: Type;
   zaehlernummer?: string;
   bisherigerAnbieter?: string;
@@ -23,8 +20,14 @@ interface State {
   einzugsdatum?: string;
 }
 
+interface OwnProps {
+  onBack: () => void;
+  onSubmit: () => void;
+  type?: Type;
+}
 
-type Props = InjectedFormProps<Values, {}>;
+
+type Props = InjectedFormProps<Values, OwnProps> & OwnProps;
 
 const types: Option[] = [
   { value: 'ANBIETERWECHSEL', displayed: 'Anbieterwechsel' },
@@ -39,15 +42,9 @@ const kuendigung: Option[] = [
 
 
 const _ZaehlerDaten: FunctionComponent<Props> = (props: Props) => {
-  const [type, setType] = useState(Type.NOT_SELECTED);
-
-  const onChange = (e: FormEvent<HTMLSelectElement>) => {
-    const type: TypeType = e.currentTarget.value as TypeType;
-    setType(Type[type]);
-  }
 
   const renderTypeDependent = () => {
-    switch (type) {
+    switch (props.type) {
       case Type.ANBIETERWECHSEL:
         return (
           <Fragment>
@@ -69,29 +66,34 @@ const _ZaehlerDaten: FunctionComponent<Props> = (props: Props) => {
     }
   }
 
-
+  console.log(props);
+  
   return (
     <div>
       <h2>ZÄHLERDATEN</h2>
       <p>Geben Sie Ihre Zählernummer und den Zählerstand ein. Gerade nicht zur Hand? Kein Problem. Sie können die Daten auch später unserem Service per E-Mail oder Telefon zukommen lassen.</p>
       <form onSubmit={props.handleSubmit(() => {console.log('submitted');
       })}>
-        <Field onChange={onChange} name="type" label="Anbieterwechsel oder Neueinzug?" component={renderSelect} options={types} validate={[required]} />
+        <Field name="type" label="Anbieterwechsel oder Neueinzug?" component={renderSelect} options={types} validate={[required]} />
         {renderTypeDependent()}
-        <div className="btn">
-          <PrimaryButton content="WEITER" disabled={false} showSpinner={false} />
+        <div className="btns">
+          <PrimaryButton onClick={props.onBack} content="ZURÜCK" type="button" />
+          <PrimaryButton content="WEITER" />
         </div>
       </form>
     </div>
   );
 }
 
+const selector = formValueSelector('vertragsdaten');
+
+const ConnectedZaehlerdaten = connect(state => { return {type: selector(state, 'type')} }, null)(_ZaehlerDaten);
 
 
-export const ZaehlerDaten = reduxForm<Values>({
+export const ZaehlerDaten = reduxForm<Values, OwnProps>({
   form: 'vertragsdaten',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true
-})(_ZaehlerDaten);
+})(ConnectedZaehlerdaten);
 
 
