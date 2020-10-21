@@ -1,4 +1,4 @@
-import React, { FormEvent, FunctionComponent, useState, Fragment } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, formValueSelector, InjectedFormProps, reduxForm } from 'redux-form';
 import { renderInput, renderSelect, Option } from '../../../../util/renderField';
@@ -72,8 +72,7 @@ const _ZaehlerDaten: FunctionComponent<Props> = (props: Props) => {
     <div>
       <h2>ZÄHLERDATEN</h2>
       <p>Geben Sie Ihre Zählernummer und den Zählerstand ein. Gerade nicht zur Hand? Kein Problem. Sie können die Daten auch später unserem Service per E-Mail oder Telefon zukommen lassen.</p>
-      <form onSubmit={props.handleSubmit(() => {console.log('submitted');
-      })}>
+      <form onSubmit={props.handleSubmit(props.onSubmit)}>
         <Field name="type" label="Anbieterwechsel oder Neueinzug?" component={renderSelect} options={types} validate={[required]} />
         {renderTypeDependent()}
         <div className="btns">

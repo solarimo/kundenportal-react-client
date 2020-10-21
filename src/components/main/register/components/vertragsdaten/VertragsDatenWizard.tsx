@@ -1,4 +1,5 @@
 import React from 'react';
+import { Kontoverbindung } from './Kontoverbindung';
 import { PersoenlicheDaten } from './PersoenlicheDaten';
 import { ZaehlerDaten } from './ZaehlerDaten';
 
@@ -8,7 +9,8 @@ interface State {
 
 enum Page {
   PERSOENLICHE_DATEN ,
-  ZAEHLER_DATEN
+  ZAEHLER_DATEN,
+  KONTOVERBINDUNG
 }
 
 export class VertragsDatenWizard extends React.Component<{}, State> {
@@ -16,7 +18,7 @@ export class VertragsDatenWizard extends React.Component<{}, State> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      page: Page.PERSOENLICHE_DATEN
+      page: Page.KONTOVERBINDUNG
     }
   }
 
@@ -36,9 +38,11 @@ export class VertragsDatenWizard extends React.Component<{}, State> {
     
     switch(this.state.page) {
       case Page.PERSOENLICHE_DATEN:
-        return <PersoenlicheDaten onSubmit={this.nextPage} />
+        return <PersoenlicheDaten onSubmit={this.nextPage} />;
       case Page.ZAEHLER_DATEN:
-        return <ZaehlerDaten onBack={this.prevPage} onSubmit={this.nextPage} />
+        return <ZaehlerDaten onBack={this.prevPage} onSubmit={this.nextPage} />;
+      case Page.KONTOVERBINDUNG:
+        return <Kontoverbindung onBack={this.prevPage} onSubmit={this.nextPage} />;
     }
   }
 

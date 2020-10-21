@@ -1,5 +1,5 @@
-import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { Field, FormErrors, FormProps, InjectedFormProps, reduxForm } from 'redux-form';
+import React, { FunctionComponent } from 'react';
+import { Field, FormErrors, InjectedFormProps, reduxForm } from 'redux-form';
 import { renderInput, renderSelect, Option } from '../../../../util/renderField';
 import { isDate, isEmail, isPhonenumber, pastDate, required } from '../../../../util/ValidationRules';
 import { NavigationButton } from '../../../global-components/NavigationButton';
