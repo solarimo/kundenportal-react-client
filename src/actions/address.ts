@@ -1,3 +1,4 @@
+import { ActionTypes } from "./types"
 
 export interface Address {
   strasse: string;
@@ -8,12 +9,8 @@ export interface Address {
 }
 
 
-export enum ActionTypes {
-  SET_ADDRESS,
-}
-
 export interface SetAddressAction {
-  type: ActionTypes.SET_ADDRESS
+  type: ActionTypes.SET_ADDRESS;
   payload: Address;
 }
 

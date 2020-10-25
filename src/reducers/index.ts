@@ -1,4 +1,4 @@
-import { Address } from '../actions/index';
+import { Address, Calculation, SetCalculationAction } from '../actions/index';
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { ActionTypes, SetAddressAction } from '../actions';
@@ -11,6 +11,7 @@ export interface StoreState {
 
 export interface UserRegistrationState {
   address: Address;
+  calculation: Calculation;
 }
 
 const initialState: UserRegistrationState = {
@@ -20,17 +21,29 @@ const initialState: UserRegistrationState = {
     postleitzahl: '',
     stadt: '',
     addressId: ''
+  },
+  calculation: {
+    stromverbrauch: 0,
+    monatlAbschlag: 0,
+    ersparnisC02Kg: 0,
+    ersparnisPerYear: 0,
+    grundpreis: 0,
+    arbeitspreis: 0
   }
 }
 
-const userRegistrationReducer = (state: UserRegistrationState = initialState, action: SetAddressAction): UserRegistrationState => {
+const userRegistrationReducer = (state: UserRegistrationState = initialState, action: SetAddressAction | SetCalculationAction): UserRegistrationState => {
   switch (action.type) {
     case ActionTypes.SET_ADDRESS:
       return {
         ...state,
         address: action.payload
       };
-  
+    case ActionTypes.SET_CALCULATION:
+      return {
+        ...state,
+        calculation: action.payload
+      }
     default:
       return state;
   }

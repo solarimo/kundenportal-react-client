@@ -5,6 +5,7 @@ import backend from '../../../../../api/backend';
 import { StoreState } from '../../../../../reducers';
 import { mustBeNumber } from '../../../../util/ValidationRules';
 import { NavigationButton } from '../../../global-components/NavigationButton';
+import { Calculation, setCalculation } from '../../../../../actions';
 
 import './Calculator.css';
 
@@ -19,7 +20,7 @@ const labels: { [key: string]: { ref: React.RefObject<HTMLLabelElement>, value: 
 
 const input = createRef<HTMLInputElement>();
 
-interface CalculatorState {
+interface State {
   stromverbrauch: string;
   errorMessage: string;
   values: BackendResponse;
@@ -28,15 +29,16 @@ interface CalculatorState {
 
 interface OwnProps {
   addressId: string;
+  setCalculation: (calc: Calculation) => void;
 }
 
 interface BackendResponse {
-  stromverbrauch?: number;
-  monatlAbschlag?: number;
-  ersparnisPerYear?: number;
-  ersparnisC02Kg?: number;
-  grundpreis?: number;
-  arbeitspreis?: number;
+  stromverbrauch: number;
+  monatlAbschlag: number;
+  ersparnisPerYear: number;
+  ersparnisC02Kg: number;
+  grundpreis: number;
+  arbeitspreis: number;
 
 }
 
@@ -51,14 +53,21 @@ const Error = ({ message }: { message: string }) => {
 }
 
 
-class _Calculator extends React.Component<OwnProps, CalculatorState> {
+class _Calculator extends React.Component<OwnProps, State> {
 
   constructor(props: OwnProps) {
     super(props);
     this.state = {
       stromverbrauch: '',
       errorMessage: '',
-      values: {},
+      values: {
+        stromverbrauch: 0,
+        monatlAbschlag: 0,
+        ersparnisC02Kg: 0,
+        ersparnisPerYear: 0,
+        grundpreis: 0,
+        arbeitspreis: 0
+      },
       dataState: DataState.PRISTINE
     }
   }
@@ -91,7 +100,7 @@ class _Calculator extends React.Component<OwnProps, CalculatorState> {
 
 
   onChange(val: FormEvent<HTMLFormElement>) {
-    this.setState((state: CalculatorState) => {
+    this.setState((state: State) => {
       if (!state.errorMessage) {
         this.setState({ dataState: DataState.LOADING });
         backend.post<BackendResponse>('/register/calculate', {
@@ -99,7 +108,8 @@ class _Calculator extends React.Component<OwnProps, CalculatorState> {
           stromverbrauch: parseInt(state.stromverbrauch)
         })
           .then(({ data }) => {
-            this.setState({ values: data, dataState: DataState.SHOW })
+            this.setState({ values: data, dataState: DataState.SHOW });
+            this.props.setCalculation(data as Calculation);
           })
       }
     });
@@ -205,4 +215,4 @@ const mapStateToProps = ({ userRegistration }: StoreState) => {
   return { addressId: userRegistration.address.addressId }
 }
 
-export const Calculator = connect(mapStateToProps, null)(_Calculator);
+export const Calculator = connect(mapStateToProps, { setCalculation })(_Calculator);
