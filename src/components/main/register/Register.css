@@ -39,3 +39,31 @@ input:focus {
   justify-content: center;
   margin-top: 100px;
 }
+
+.calc-sm div {
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+}
+
+.calc-sm {
+  grid-area: calc;
+  margin-left: 30px;
+}
+
+.vertragsdaten-fragmnet {
+  grid-area: input;
+}
+
+.calc-sm-top {
+  background-color: #2C3F46;
+}
+.calc-sm-bottom {
+  background-color: #586A73;
+}
+
+.register-wizzard {
+  display: grid;
+  grid-template-columns: 70% auto;
+  grid-template-areas: "input calc";
+}

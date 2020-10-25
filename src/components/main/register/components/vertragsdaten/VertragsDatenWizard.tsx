@@ -1,4 +1,5 @@
 import React from 'react';
+import { CalculationView } from '../CalculationView';
 import { Kontoverbindung } from './Kontoverbindung';
 import { Optional } from './Optional';
 import { PersoenlicheDaten } from './PersoenlicheDaten';
@@ -52,8 +53,11 @@ export class VertragsDatenWizard extends React.Component<{}, State> {
 
   render() {
     return (
-      <div>
+      <div className="register-wizzard">
+        <div className="vertragsdaten-fragmnet">
         {this.renderPage()}
+        </div>
+        <CalculationView />
       </div>
     );
   }

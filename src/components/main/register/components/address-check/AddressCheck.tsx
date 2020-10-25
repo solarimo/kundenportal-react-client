@@ -29,7 +29,7 @@ interface Values {
   stadt: string;
 }
 
-interface AddressCheckState {
+interface State {
   fetching: boolean;
   showErrorSnackBar: boolean;
 }
@@ -40,12 +40,12 @@ interface OwnProps {
   history: any
 }
 
-type AddressCheckProps = InjectedFormProps<Values, OwnProps> & OwnProps;
+type Props = InjectedFormProps<Values, OwnProps> & OwnProps;
 
 
-class _AddressCheck extends React.Component<AddressCheckProps, AddressCheckState> {
+class _AddressCheck extends React.Component<Props, State> {
 
-  constructor(props: AddressCheckProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = { fetching: false, showErrorSnackBar: false };
