@@ -55,6 +55,7 @@ input:focus {
   grid-area: input;
 }
 
+
 .calc-sm-top {
   background-color: #2C3F46;
 }
@@ -64,6 +65,6 @@ input:focus {
 
 .register-wizzard {
   display: grid;
-  grid-template-columns: 70% auto;
+  grid-template-columns: 60% auto;
   grid-template-areas: "input calc";
 }
