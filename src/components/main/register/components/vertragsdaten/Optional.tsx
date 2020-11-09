@@ -28,7 +28,7 @@ const _Optional: FunctionComponent<Props> = (props: Props) => {
         <Field label="Empfehlung" name="empfehlung" component={renderInput} />
         <div className="btns">
           <PrimaryButton onClick={props.onBack} content="ZURÜCK" type="button" />
-          <PrimaryButton content="WEITER" />
+          <PrimaryButton onClick={props.onSubmit} content="WEITER" />
         </div>
       </form>
     </div>

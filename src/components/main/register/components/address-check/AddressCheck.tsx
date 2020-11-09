@@ -5,10 +5,11 @@ import { required, mustBeNumber, mustbe5long } from '../../../../util/Validation
 import './AddressCheck.css'
 import { connect } from 'react-redux';
 import { StoreState } from '../../../../../reducers';
-import { setAddress, Address } from '../../../../../actions';
+import { setAddress } from '../../../../../actions';
 import backend from '../../../../../api/backend';
 import { CustomSnackbar } from '../../../global-components/CustomSnackbar';
 import { renderInput } from '../../../../util/renderField';
+import { Address } from '../../../../../domain/Address';
 
 
 class GoogleResponseAddress {

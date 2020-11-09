@@ -16,9 +16,13 @@ enum Page {
   OPTIONAL,
 }
 
-export class VertragsDatenWizard extends React.Component<{}, State> {
+interface OwnProps {
+  history: any;
+}
 
-  constructor(props: {}) {
+export class VertragsDatenWizard extends React.Component<OwnProps, State> {
+
+  constructor(props: OwnProps) {
     super(props);
     this.state = {
       page: Page.PERSOENLICHE_DATEN
@@ -26,7 +30,7 @@ export class VertragsDatenWizard extends React.Component<{}, State> {
   }
 
   onSubmit = () => {
-
+    this.props.history.push('/register/uebersicht');
   }
 
   nextPage = () => {
@@ -53,8 +57,8 @@ export class VertragsDatenWizard extends React.Component<{}, State> {
 
   render() {
     return (
-      <div className="register-wizzard">
-        <div className="vertragsdaten-fragmnet">
+      <div className="form-calc-grid">
+        <div className="input-fragment">
         {this.renderPage()}
         </div>
         <CalculationView />

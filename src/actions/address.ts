@@ -1,12 +1,6 @@
+import { Address } from "../domain/Address"
 import { ActionTypes } from "./types"
 
-export interface Address {
-  strasse: string;
-  hausnummer: string;
-  postleitzahl: string;
-  stadt: string;
-  addressId: string;
-}
 
 
 export interface SetAddressAction {

@@ -1,7 +1,8 @@
-import { Address, Calculation, SetCalculationAction } from '../actions/index';
+import {  Calculation, SetCalculationAction } from '../actions/index';
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { ActionTypes, SetAddressAction } from '../actions';
+import { Address } from '../domain/Address';
 
 
 export interface StoreState {

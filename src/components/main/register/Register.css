@@ -51,7 +51,7 @@ input:focus {
   margin-left: 30px;
 }
 
-.vertragsdaten-fragmnet {
+.input-fragment {
   grid-area: input;
 }
 
@@ -62,7 +62,7 @@ input:focus {
   background-color: #586A73;
 }
 
-.register-wizzard {
+.form-calc-grid {
   display: grid;
   grid-template-columns: 70% auto;
   grid-template-areas: "input calc";
