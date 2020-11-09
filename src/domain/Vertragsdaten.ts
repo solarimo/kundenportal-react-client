@@ -11,12 +11,12 @@ export interface Vertragsdaten {
   password: string;
   passwordRepeated: string;
   rabattCode?: string;
-  titel: string;
+  titel?: string;
   type: string;
   vorname: string;
   zaehlernummer?: string;
   bisherigerAnbieter?: string;
   vertragslaufzeitBis?: string;
-  telefonummer: string;
+  telefonnummer: string;
   bereitsGekuendigt?: string;
 }

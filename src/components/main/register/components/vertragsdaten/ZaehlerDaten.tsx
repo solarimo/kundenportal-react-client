@@ -65,8 +65,6 @@ const _ZaehlerDaten: FunctionComponent<Props> = (props: Props) => {
         return;
     }
   }
-
-  console.log(props);
   
   return (
     <div>
