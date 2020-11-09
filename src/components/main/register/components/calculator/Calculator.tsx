@@ -99,18 +99,18 @@ class _Calculator extends React.Component<OwnProps, State> {
   }
 
 
-  onChange(val: FormEvent<HTMLFormElement>) {
-    this.setState((state: State) => {
-      if (!state.errorMessage) {
+  onChange() {
+    this.setState((state: State) => state, () => {
+      if (!this.state.errorMessage) {
         this.setState({ dataState: DataState.LOADING });
         backend.post<BackendResponse>('/register/calculate', {
           addressId: this.props.addressId,
-          stromverbrauch: parseInt(state.stromverbrauch)
+          stromverbrauch: parseInt(this.state.stromverbrauch)
         })
-          .then(({ data }) => {
-            this.setState({ values: data, dataState: DataState.SHOW });
-            this.props.setCalculation(data as Calculation);
-          })
+        .then(({ data }) => {
+          this.setState({ values: data, dataState: DataState.SHOW });
+          this.props.setCalculation(data as Calculation);
+        });
       }
     });
   }
