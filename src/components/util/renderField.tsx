@@ -1,4 +1,6 @@
+import { FormControlLabel } from '@material-ui/core';
 import React from 'react';
+import { YellowCheckBox } from '../main/global-components/YellowCheckBox';
 
 export interface Option {
   value: string;
@@ -35,4 +37,14 @@ function renderOptions(values: Option[]) {
   return values.map(option => {
     return <option key={option.value} value={option.value}>{option.displayed}</option>
   });
+}
+
+export function renderCheckbox({ input, label }: any) {
+  return (
+    <FormControlLabel
+      control={<YellowCheckBox {...input} />}
+      label={label}
+      labelPlacement="end"
+    />
+  );
 }

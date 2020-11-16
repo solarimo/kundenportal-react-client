@@ -1,9 +1,11 @@
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getFormValues, InjectedFormProps, reduxForm } from 'redux-form';
+import { Field, getFormValues, InjectedFormProps, reduxForm } from 'redux-form';
 import { Address, addressToString } from '../../../../../domain/Address';
 import { Vertragsdaten } from '../../../../../domain/Vertragsdaten';
 import { StoreState } from '../../../../../reducers';
+import { renderCheckbox } from '../../../../util/renderField';
 import { CalculationView } from '../CalculationView';
 
 interface OwnProps {
@@ -21,6 +23,8 @@ class _Uebersicht extends React.Component<Props> {
   constructor(props: Props) {
     super(props)
   }
+
+  sepaConsentText = 'Ich ermächtige die Solarimo GmbH, Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der Solarimo GmbH auf mein Konto gezogenen SEPA-Lastschriften einzulösen.';
 
 
   render() {
@@ -49,7 +53,14 @@ class _Uebersicht extends React.Component<Props> {
           <h1>KUNDENWERBUNG & RABATT</h1>
           <p><strong>Rabattcode: </strong>{this.props.vertragsdaten.rabattCode || '-'}</p>
           <p><strong>Empfholen von: </strong>{this.props.vertragsdaten.empfehlung || '-'}</p>
+          <form>
+            <Field name="sepa" label={this.sepaConsentText} component={renderCheckbox} />
+            <Field name="agb" label="Ich habe die AGB und Widerrufsbestimmungen gelesen und akzeptiert." component={renderCheckbox} />
+            <Field name="datenschutz" label="Ich habe die Datenschutzbestimmungen zur Kenntnis genommen." component={renderCheckbox} />
+            <Field name="moechteWerbung" label="Ich möchte über die neuesten Angebote, Rabatt-Aktionen und Veranstaltungen von SOLARME informiert werden." component={renderCheckbox} />
+          </form>
         </div>
+
         <CalculationView />
       </div>
     );
