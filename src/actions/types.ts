@@ -1,4 +1,5 @@
 export enum ActionTypes {
   SET_ADDRESS,
-  SET_CALCULATION
+  SET_CALCULATION,
+  REGISTER_USER,
 }

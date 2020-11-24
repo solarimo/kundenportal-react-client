@@ -17,7 +17,7 @@ interface Values {
   bisherigerAnbieter?: string;
   bereitsGekuendigt?: string;
   vertragslaufzeitBis?: string;
-  einzugsdatum?: string;
+  einzugsDatum?: string;
 }
 
 interface OwnProps {
@@ -58,7 +58,7 @@ const _ZaehlerDaten: FunctionComponent<Props> = (props: Props) => {
         return (
           <Fragment>
             <Field name="zaehlernummer" label="Zählernummer" component={renderInput} />
-            <Field name="einzugsdatum" label="Einzugsdatum" hintText="TT.MM.YYYY" component={renderInput} validate={[required, isDate, futureDate]}/>
+            <Field name="einzugsDatum" label="einzugsDatum" hintText="TT.MM.YYYY" component={renderInput} validate={[required, isDate, futureDate]}/>
           </Fragment>
         );
       default:

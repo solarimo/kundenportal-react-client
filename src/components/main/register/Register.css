@@ -63,8 +63,15 @@ input:focus {
   background-color: #586A73;
 }
 
+.consent-form {
+  grid-area: consent;
+}
+
 .form-calc-grid {
   display: grid;
   grid-template-columns: 60% auto;
-  grid-template-areas: "input calc";
+  grid-template-rows: 1;
+  grid-template-areas: 
+                      "input calc"
+                      "consent consent";
 }

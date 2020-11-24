@@ -41,10 +41,13 @@ function renderOptions(values: Option[]) {
 
 export function renderCheckbox({ input, label }: any) {
   return (
+    <React.Fragment>
     <FormControlLabel
       control={<YellowCheckBox {...input} />}
       label={label}
       labelPlacement="end"
     />
+    <br/>
+    </React.Fragment>
   );
 }

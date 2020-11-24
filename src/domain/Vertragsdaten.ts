@@ -1,7 +1,7 @@
 export interface Vertragsdaten {
   anrede: string;
   bic: string;
-  einzugsdatum?: string;
+  einzugsDatum?: string;
   email: string;
   empfehlung: string;
   geburtsdatum: string;
