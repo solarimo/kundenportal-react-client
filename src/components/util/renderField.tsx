@@ -1,17 +1,18 @@
 import { FormControlLabel } from '@material-ui/core';
 import React from 'react';
 import { YellowCheckBox } from '../main/global-components/YellowCheckBox';
+import { v4 as uuid } from 'uuid';
 
 export interface Option {
   value: string;
   displayed: string;
 }
 
-export function renderInput({ onInput ,hidden, label, input, meta, hintText, type }: any) {  
+export function renderInput({ onInput ,hidden, label, input, meta, hintText, type, id }: any) {  
   return (
     <div>
       <label>{label}</label>
-      <input  onInput={onInput} hidden={hidden || false} className={(meta.touched && meta.error) ? 'field-error' : ''} {...input} type={type || 'text'} placeholder={hintText || ''} />
+      <input id={id || uuid()} onInput={onInput} hidden={hidden || false} className={(meta.touched && meta.error) ? 'field-error' : ''} {...input} type={type || 'text'} placeholder={hintText || ''} />
       {(meta.touched && meta.error) && <span style={{ color: 'red', fontSize: '10px' }} >{meta.error}</span>}
     </div>
   );

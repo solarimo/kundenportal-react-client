@@ -193,7 +193,7 @@ class _Calculator extends React.Component<OwnProps, State> {
               </div>
               <div>
                 <p>oder Stromverbrauch (kWh/Jahr)</p>
-                <input ref={input} id="input" className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
+                <input ref={input} id="calc-verbrauch" className={this.state.errorMessage ? 'field-error' : ''} value={this.state.stromverbrauch} onChange={this.onInputChange} />
                 {this.state.errorMessage && <Error message={this.state.errorMessage} />}
               </div>
             </div>
@@ -203,8 +203,8 @@ class _Calculator extends React.Component<OwnProps, State> {
           {this.renderBottom()}
         </div>
         <div className="btns">
-          <NavigationButton to="/register/verfuegbarkeit" disabled={false} content="ZURÜCK" showSpinner={false} />
-          <NavigationButton to="/register/vertragsdaten" disabled={!!this.state.errorMessage || !this.state.stromverbrauch} content="WEITER" showSpinner={false} />
+          <NavigationButton to="/register/verfuegbarkeit" content="ZURÜCK" />
+          <NavigationButton id="calc-to-vertragsdaten" to="/register/vertragsdaten" disabled={!!this.state.errorMessage || !this.state.stromverbrauch} content="WEITER" />
         </div>
       </div>
     )

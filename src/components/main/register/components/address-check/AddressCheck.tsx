@@ -124,18 +124,18 @@ class _AddressCheck extends React.Component<Props, State> {
             <br />
             <div className="flex-container">
               <div style={{ width: '75%' }}>
-                <Field label="Straße" name="strasse" component={renderInput} validate={[required]} />
+                <Field id="addr-check-strasse" label="Straße" name="strasse" component={renderInput} validate={[required]} />
               </div>
               <div style={{ width: '25%' }}>
-                <Field label="Hausnummer" name="hausnummer" component={renderInput} validate={[required]} />
+                <Field id="addr-check-hausnummer" label="Hausnummer" name="hausnummer" component={renderInput} validate={[required]} />
               </div>
             </div>
             <div className="flex-container">
               <div style={{ width: '50%' }}>
-                <Field label="Postleitzahl" name="postleitzahl" component={renderInput} validate={[required, mustBeNumber, mustbe5long]} />
+                <Field label="Postleitzahl" id="addr-check-plz" name="postleitzahl" component={renderInput} validate={[required, mustBeNumber, mustbe5long]} />
               </div>
               <div style={{ width: '50%' }}>
-                <Field label="Stadt" name="stadt" component={renderInput} validate={[required]} />
+                <Field label="Stadt" id="addr-check-stadt" name="stadt" component={renderInput} validate={[required]} />
               </div>
             </div>
             <div className="flex-btn">
