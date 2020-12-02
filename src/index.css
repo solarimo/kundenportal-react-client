@@ -1,14 +1,13 @@
 
 
 body {
-    margin: 0;
     color: #304148;
-   
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
 }
 
 * {
-    font-family: 'Raleway', sans-serif;
-    
+    box-sizing: border-box;
 }
 
 hr {
