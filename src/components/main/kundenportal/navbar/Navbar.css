@@ -11,7 +11,7 @@
 .nav-links a {
     text-decoration: none;
     text-transform: uppercase;
-    color: #304148;
+    color: var(--color-primary);
     padding: 16px;
     transition: 0.4s;
 }
@@ -40,7 +40,7 @@ ul {
 .burger div {
     width: 25px;
     height: 2px;
-    background-color: #304148;
+    background-color: var(--color-primary);
     margin: 5px;
     transition: all .3s ease;
 }
@@ -70,7 +70,7 @@ ul {
         flex-direction: column;
         width: 100%;
         transition: max-height 0.3s ease-out;
-        background-color: #304148;
+        background-color: var(--color-primary);
         justify-content: flex-start;
     }
 
@@ -79,7 +79,7 @@ ul {
     }
 
     .nav-links a:hover {
-        color: #304148;
+        color: var(--color-primary);
     }
 
     nav {

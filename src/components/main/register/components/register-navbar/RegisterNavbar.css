@@ -36,13 +36,13 @@
 }
 
 .register-nav-active, a.register-nav-active {
-  color: #fdc300;
+  color: var(--color-accent);
   font-weight: bold;
  
 }
 
 a.register-nav-active::before {
-  border-color: #fdc300;
+  border-color: var(--color-accent);
 }
 
 @media screen and (max-width: 768px) {

@@ -32,7 +32,7 @@
 
 
 .calc-top p {
-  color: #FDC300;
+  color: var(--color-accent);
 }
 
 .calc-top {

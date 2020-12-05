@@ -1,17 +1,25 @@
+:root {
+    /* define theme colors */
+    --color-primary: #304148;
+    --color-accent: #fdc300;
+}
 
+html {
+    box-sizing: border-box;
+}
 
 body {
-    color: #304148;
+    color: var(--color-primary);
     font-family: 'Raleway', sans-serif;
     margin: 0;
 }
 
-* {
-    box-sizing: border-box;
+*, *::after, *::before {
+    box-sizing: inherit;
 }
 
 hr {
-    background-color: #304148;
+    background-color: var(--color-primary);
     height: 1px;
     border: none;
 }
@@ -19,20 +27,20 @@ hr {
 button {
     border: none;
     padding: 15px;
-    background-color: #fdc300;
+    background-color: var(--color-accent);
     text-transform: uppercase;
     transition: all 0.2s linear;
     font-size: 16px;
   }
   
 button:hover {
-    background-color: #304148;
+    background-color: var(--color-primary);
     color: #ffffff;
 }
 
 button:disabled:hover {
-    background-color: #fdc300;
-    color: #304148;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
 }
 
 .main {
@@ -59,7 +67,7 @@ button:disabled:hover {
 
 .footer {
     grid-area: footer;
-    background-color: #304148;
+    background-color: var(--color-primary);
     color: #ffffff;
     display: flex;
     flex-wrap: wrap;

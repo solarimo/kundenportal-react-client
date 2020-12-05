@@ -31,7 +31,7 @@ select {
 }
 
 input:focus {
-  border-bottom-color:#fdc300;
+  border-bottom-color:var(--color-accent);
 }
 
 .flex-btn {
