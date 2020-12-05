@@ -62,7 +62,7 @@ const _Kontoverbindung: FunctionComponent<Props> = (props: Props) => {
         <Field name="bic" hidden={true} component={renderInput}/>
         <div className="btns">
           <PrimaryButton onClick={props.onBack} content="ZURÜCK" type="button" />
-          <PrimaryButton showSpinner={fetching} content="WEITER" disabled={fetching} />
+          <PrimaryButton id="konto-to-optional" showSpinner={fetching} content="WEITER" disabled={fetching} />
         </div>
       </form>
     </div>

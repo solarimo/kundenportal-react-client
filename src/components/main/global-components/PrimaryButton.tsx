@@ -1,6 +1,8 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { FunctionComponent } from 'react';
 import './global-components.css';
+import { v4 as uuid } from 'uuid';
+
 
 
 interface PrimaryButtonProps {
@@ -9,12 +11,13 @@ interface PrimaryButtonProps {
   disabled?: boolean;
   type?: 'button' | 'submit';
   onClick?: () => void;
+  id?: string;
 }
 
 
 export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = (props: PrimaryButtonProps): JSX.Element => {
   return (
-    <button onClick={props.onClick} type={props.type || 'submit'} disabled={props.disabled || false}>
+    <button  id={props.id || uuid() } onClick={props.onClick} type={props.type || 'submit'} disabled={props.disabled || false}>
       <div className="btn-flex-content">
       {props.content}
       { props.showSpinner &&

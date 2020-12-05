@@ -42,8 +42,29 @@ it('should be able to register', async () => {
   await page.type('input[name="email"]', 'max@test.com');
   await page.type('input[name="password"]', 'maxistschlau');
   await page.type('input[name="passwordRepeated"]', 'maxistschlau');
+  // submit personal data
+  await page.click('#pers-to-zaehler');
 
-  
+  // fill out zaehlerdata
+  await page.select('select[name="type"]', 'ANBIETERWECHSEL');
+  await page.type('input[name="zaehlernummer"]', 'musternummer');
+  await page.type('input[name="bisherigerAnbieter"]', 'Firma Sowieso');
+  await page.select('select[name="bereitsGekuendigt"]', 'BEREITS_GEKUENDIGT');
+  await page.type('input[name="vertragslaufzeitBis"]', '01.01.3001');
+  // submit
+  await page.click('#zaehler-to-konto');
 
-  await browser.close();
+  // fill out bank data 
+  await page.type('input[name="kontoinhaber"]', 'Max Mustermann');
+  await page.type('input[name="iban"]', 'DE89 3704 0044 0532 0130 00');
+  // submit
+  await page.click('#konto-to-optional');
+
+  // fill out optional data
+  await page.waitForSelector('input[name="rabattCode"]');
+  await page.type('input[name="rabattCode"]', 'solaristcool');
+  await page.type('input[name="empfehlung"]', 'mein nachbar');
+  //submit
+  await page.click('#optional-to-overview');
+  // await browser.close();
 });

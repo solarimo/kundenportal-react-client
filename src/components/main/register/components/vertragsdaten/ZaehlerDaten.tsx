@@ -75,7 +75,7 @@ const _ZaehlerDaten: FunctionComponent<Props> = (props: Props) => {
         {renderTypeDependent()}
         <div className="btns">
           <PrimaryButton onClick={props.onBack} content="ZURÜCK" type="button" />
-          <PrimaryButton content="WEITER" />
+          <PrimaryButton id="zaehler-to-konto" content="WEITER" />
         </div>
       </form>
     </div>
