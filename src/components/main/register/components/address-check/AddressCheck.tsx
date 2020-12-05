@@ -155,9 +155,9 @@ const AddressCheck = reduxForm<Values, OwnProps>({
 })(_AddressCheck);
 
 
-const mapStateToProps = ({ userRegistration }: StoreState) => {
+const mapStateToProps = ({ register }: StoreState) => {
 
-  return { address: userRegistration.address };
+  return { address: register.userRegistration.address };
 }
 
 export default connect(mapStateToProps, { setAddress })(AddressCheck);

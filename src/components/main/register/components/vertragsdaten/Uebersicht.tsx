@@ -9,13 +9,14 @@ import { NavigationButton } from '../../../global-components/NavigationButton';
 import { PrimaryButton } from '../../../global-components/PrimaryButton';
 import { CalculationView } from '../CalculationView';
 import { registerUser, DomainUserData } from '../../../../../actions';
+import { RouteComponentProps } from 'react-router-dom';
 
-interface OwnProps {
+interface OwnProps extends RouteComponentProps {
   address: Address;
   monatlAbschlag: number;
   stromverbrauch: number;
   vertragsdaten: Vertragsdaten;
-  registerUser: (data: DomainUserData) => void;
+  registerUser: (data: DomainUserData) => Promise<void>;
 }
 
 interface State {
@@ -40,7 +41,14 @@ class _Uebersicht extends React.Component<Props, State> {
       address: this.props.address,
       monatlAbschlag: this.props.monatlAbschlag,
       stromverbrauch: this.props.stromverbrauch
-     });
+     })
+     .then(() => {
+        this.props.history.push('/portal');
+        this.props.destroy();
+      })
+     .catch(e => {
+        console.log(e);
+     })
     
   }
 
@@ -88,11 +96,11 @@ class _Uebersicht extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: StoreState) => {
+const mapStateToProps = ( state: StoreState) => {
   return {
-    address: state.userRegistration.address,
-    stromverbrauch: state.userRegistration.calculation.stromverbrauch,
-    monatlAbschlag: state.userRegistration.calculation.monatlAbschlag,
+    address: state.register.userRegistration.address,
+    stromverbrauch: state.register.userRegistration.calculation.stromverbrauch,
+    monatlAbschlag: state.register.userRegistration.calculation.monatlAbschlag,
     vertragsdaten: getFormValues('vertragsdaten')(state)
   }
 }

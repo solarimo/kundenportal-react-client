@@ -26,9 +26,9 @@ class _CalculationView extends React.Component<StateProps & {}> {
   };
 }
 
-const mapStateToProps = ({ userRegistration }: StoreState) => {
+const mapStateToProps = ({ register }: StoreState) => {
   return {
-    calculation: userRegistration.calculation
+    calculation: register.userRegistration.calculation
   }
 }
 export const CalculationView = connect(mapStateToProps)(_CalculationView);

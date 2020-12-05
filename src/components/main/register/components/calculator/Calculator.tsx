@@ -211,8 +211,8 @@ class _Calculator extends React.Component<OwnProps, State> {
   }
 }
 
-const mapStateToProps = ({ userRegistration }: StoreState) => {
-  return { addressId: userRegistration.address.addressId }
+const mapStateToProps = ({ register }: StoreState) => {
+  return { addressId: register.userRegistration.address.addressId }
 }
 
 export const Calculator = connect(mapStateToProps, { setCalculation })(_Calculator);

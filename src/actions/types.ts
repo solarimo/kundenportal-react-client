@@ -1,5 +1,6 @@
 export enum ActionTypes {
   SET_ADDRESS,
   SET_CALCULATION,
-  REGISTER_USER,
+  CLEAR_REGISTER_STATE,
+  SET_IS_LOGGED_IN,
 }

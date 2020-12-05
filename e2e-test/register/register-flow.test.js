@@ -1,4 +1,5 @@
 const puppeteer =  require('puppeteer');
+const uuid = require('uuid').v4;
 
 it('should be able to register', async () => {
   const browser = await puppeteer.launch({ headless: false });
@@ -39,7 +40,7 @@ it('should be able to register', async () => {
   await page.type('input[name="nachname"]', 'Mustermann');
   await page.type('input[name="geburtsdatum"]', '01.01.1980');
   await page.type('input[name="telefonnummer"]', '+402783478736');
-  await page.type('input[name="email"]', 'max@test.com');
+  await page.type('input[name="email"]', `${uuid()}max@test.com`);
   await page.type('input[name="password"]', 'maxistschlau');
   await page.type('input[name="passwordRepeated"]', 'maxistschlau');
   // submit personal data

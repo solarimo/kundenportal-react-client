@@ -2,6 +2,7 @@ import { Dispatch } from "redux"
 import backend from "../api/backend"
 import { Address } from "../domain/Address"
 import { Vertragsdaten } from "../domain/Vertragsdaten"
+import { SetLoginStateAction } from "./auth"
 import { ActionTypes } from "./types"
 
 export interface DomainUserData {
@@ -11,22 +12,33 @@ export interface DomainUserData {
   stromverbrauch: number;
 }
 
-export interface RegisterUserAction {
-  type: ActionTypes.REGISTER_USER;
-  payload: RequestBody
+export interface ClearRegisterStateAction {
+  type: ActionTypes.CLEAR_REGISTER_STATE;
+}
+
+interface TokenResponse {
+  accessToken: string;
+  refreshToken: string;
 }
 
 export const registerUser = (userData: DomainUserData) => {
   return async (dispatch: Dispatch) => {
-    const data: RequestBody = mapUserData(userData);
-    const res = await backend.post('/register/signup', data);
-    console.log(res);
+
+    const reqData: RequestBody = mapUserData(userData);
+    const { data } = await backend.post<TokenResponse>('/register/signup', reqData);
     
+    // save tokens to local storage
+    localStorage.setItem('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     
-    dispatch<RegisterUserAction>({
-      type: ActionTypes.REGISTER_USER,
-      payload: mapUserData(userData)
+    dispatch<ClearRegisterStateAction>({
+      type: ActionTypes.CLEAR_REGISTER_STATE
     });
+
+    dispatch<SetLoginStateAction>({
+      type: ActionTypes.SET_IS_LOGGED_IN,
+      payload: true
+    })
   }
 }
 
