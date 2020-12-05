@@ -67,5 +67,13 @@ it('should be able to register', async () => {
   await page.type('input[name="empfehlung"]', 'mein nachbar');
   //submit
   await page.click('#optional-to-overview');
-  // await browser.close();
+
+  await page.click('#btn-jetzt-anmelden');
+
+  // expect to see Kundenportal
+  await page.waitForSelector('#heading-pers-data');
+  const heading = await page.$eval('#heading-pers-data', (el) => el.innerHTML);
+  expect(heading).toEqual('Meine Daten');
+
+  await browser.close();
 });

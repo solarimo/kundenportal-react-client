@@ -88,7 +88,7 @@ class _Uebersicht extends React.Component<Props, State> {
             <Field name="moechteWerbung" label="Ich möchte über die neuesten Angebote, Rabatt-Aktionen und Veranstaltungen von SOLARME informiert werden." component={renderCheckbox} />
             <div className="btns">
               <NavigationButton to="/register/vertragsdaten" disabled={false} content="ZURÜCK" showSpinner={false} />
-              <PrimaryButton disabled={this.state.fetching} showSpinner={this.state.fetching} content="JETZT ZAHLUNGSPFLICHTIG BESTELLEN" />
+              <PrimaryButton id="btn-jetzt-anmelden" disabled={this.state.fetching} showSpinner={this.state.fetching} content="JETZT ZAHLUNGSPFLICHTIG BESTELLEN" />
             </div>
           </form>
       </div>
