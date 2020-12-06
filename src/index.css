@@ -19,6 +19,7 @@ body {
     box-sizing: inherit;
 }
 
+/* global styles */
 
 button {
     border: none;
@@ -27,7 +28,8 @@ button {
     text-transform: uppercase;
     transition: all 0.2s linear;
     font-size: 16px;
-  }
+    font-family: inherit;
+}
   
 button:hover {
     background-color: var(--color-primary);
@@ -39,17 +41,10 @@ button:disabled:hover {
     color: var(--color-primary);
 }
 
-.main {
-}
-
-.header {
-   
-}
-
 .content {
-    min-height: 60vh;
+    min-height: 67vh;
     padding: 20px;
-    margin: 0 20%;
+    margin: 0 10%;
 }
 
 @media screen and (max-width: 768px) {
@@ -59,19 +54,9 @@ button:disabled:hover {
 }
 
 
-.footer {
-    background-color: var(--color-primary);
-    color: #ffffff;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 10%;
-}
 
-.footer p {
-    color: #ffffff;
-} 
 
-/* global classes */
+/* utility classes */
 
 .flex {
     display: flex;

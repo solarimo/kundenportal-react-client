@@ -7,3 +7,16 @@
     text-decoration: none;
     color: #ffffff;
 }
+
+.footer p {
+    color: #ffffff;
+} 
+
+
+.footer {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10%;
+}

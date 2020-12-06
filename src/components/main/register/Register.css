@@ -10,6 +10,8 @@ input {
   outline: none;
   font-size: 16px;
   width: 100%;
+  font-family: inherit;
+  transition: all 0.4s;
 }
 
 select {
@@ -69,9 +71,18 @@ input:focus {
 
 .form-calc-grid {
   display: grid;
-  grid-template-columns: 60% auto;
-  grid-template-rows: 1;
+  grid-template-columns: auto 35%;
   grid-template-areas: 
                       "input calc"
                       "consent consent";
+}
+
+@media screen and (max-width: 768px) {
+  .form-calc-grid {
+    display: block;
+  }
+
+  .calc-sm {
+    margin-top: 50px;
+  }
 }

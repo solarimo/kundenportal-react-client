@@ -1,11 +1,16 @@
 .calc {
   border: solid 5px #2C3F46;
+  max-width: 1100px;
+  margin: auto;
 }
 
 .abschlag-box {
   background-color: #586A73;
   color: #ffffff;
+  flex: 1 1 33%;
 }
+
+
 
 .calc-bottom div {
   padding: 20px;
@@ -75,5 +80,16 @@
 @media screen and (max-width: 768px) {
   .person-img {
     width: 50px;
+  }
+
+  .calc-bottom {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  .calc-bottom {
+    flex-direction: column;
   }
 }
