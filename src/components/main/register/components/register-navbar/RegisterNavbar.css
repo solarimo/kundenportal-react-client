@@ -48,6 +48,14 @@ a.register-nav-active::before {
 @media screen and (max-width: 768px) {
 
   .register-navbar a {
-    font-size: 7px;
+    font-size: 0;
+  }
+
+  .register-navbar a::before {
+    font-size: 16px;
+  }
+
+  .register-navbar u {
+    justify-content: center;
   }
 }
