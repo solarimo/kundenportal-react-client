@@ -168,7 +168,7 @@ class _Calculator extends React.Component<OwnProps, State> {
             <div className="calc-top">
               <div>
                 <p className="mb-0">Personsen im Haushalt</p>
-                <div className="flex-container">
+                <div className="flex">
                   <label ref={labels.l1.ref} htmlFor="p1">
                     <img src={'/icon_person.png'} alt="person-img" className="person-img" />
                   </label>

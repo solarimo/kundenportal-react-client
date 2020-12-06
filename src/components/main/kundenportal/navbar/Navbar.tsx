@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './Navbar.css'
+import styles from './Navbar.module.css'
 
 
 
@@ -13,28 +13,28 @@ export class Navbar extends React.Component {
     private toggleNav = () => {
        const nav = this.nav.current!;
        const burger = this.burger.current!;
-       nav.classList.toggle('nav-active');
-       burger.classList.toggle('burger-transformation');
+       nav.classList.toggle(styles.navActive);
+       burger.classList.toggle(styles.burgerTransformation);
     }
 
-    render() {
+    render() {  
+        console.log(styles);
+        
         return (
-            <div className="navbar">
                 <nav>
-                    <ul ref={this.nav} className="nav-links">
-                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/meine-daten">Meine Daten</NavLink></li>
-                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/zaehlerstaende">Zählerstände</NavLink></li>
-                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/mein-vertrag">Mein Vertrag</NavLink></li>
-                        <li onClick={this.toggleNav}><NavLink activeClassName="nav-link-active" to="/portal/dokumente-und-rechnungen">Dokumente und Rechnungen</NavLink></li>
+                    <ul ref={this.nav} className={styles.navLinks}>
+                        <li onClick={this.toggleNav}><NavLink activeClassName={styles.navLinkActive} to="/portal/meine-daten">Meine Daten</NavLink></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName={styles.navLinkActive} to="/portal/zaehlerstaende">Zählerstände</NavLink></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName={styles.navLinkActive} to="/portal/mein-vertrag">Mein Vertrag</NavLink></li>
+                        <li onClick={this.toggleNav}><NavLink activeClassName={styles.navLinkActive} to="/portal/dokumente-und-rechnungen">Dokumente und Rechnungen</NavLink></li>
                     </ul>
-                    <hr />
-                    <div ref={this.burger} className="burger" onClick={this.toggleNav}>
-                        <div className="line1"></div>
-                        <div className="line2"></div>
-                        <div className="line3"></div>
+                    <hr className={styles.navLine} />
+                    <div ref={this.burger} className={styles.burger} onClick={this.toggleNav}>
+                        <div className={styles.line1}></div>
+                        <div className={styles.line2}></div>
+                        <div className={styles.line3}></div>
                     </div>
                 </nav>
-            </div>
         );
     }
 }

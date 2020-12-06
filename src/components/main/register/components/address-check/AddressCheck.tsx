@@ -122,7 +122,7 @@ class _AddressCheck extends React.Component<Props, State> {
             <label htmlFor="">Suchen Sie hier nach Ihrer Addresse</label>
             <input id="address-input" type="text" placeholder=". . ." />
             <br />
-            <div className="flex-container">
+            <div className="flex">
               <div style={{ width: '75%' }}>
                 <Field id="addr-check-strasse" label="Straße" name="strasse" component={renderInput} validate={[required]} />
               </div>
@@ -130,7 +130,7 @@ class _AddressCheck extends React.Component<Props, State> {
                 <Field id="addr-check-hausnummer" label="Hausnummer" name="hausnummer" component={renderInput} validate={[required]} />
               </div>
             </div>
-            <div className="flex-container">
+            <div className="flex">
               <div style={{ width: '50%' }}>
                 <Field label="Postleitzahl" id="addr-check-plz" name="postleitzahl" component={renderInput} validate={[required, mustBeNumber, mustbe5long]} />
               </div>

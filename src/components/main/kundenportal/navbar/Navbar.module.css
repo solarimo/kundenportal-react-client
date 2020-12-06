@@ -1,36 +1,40 @@
 
-.nav-links {
+.navLinks {
     display: flex;
     justify-content: space-between;
+    padding: 0;
 }
 
-.nav-links li {
+.navLinks li {
     list-style: none;
 }
 
-.nav-links a {
+.navLinks a {
     text-decoration: none;
     text-transform: uppercase;
     color: var(--color-primary);
     padding: 16px;
-    transition: 0.4s;
+    transition: all 0.4s;
 }
 
 
-.nav-link-active {
+.navLinkActive {
     background-color: #dddddd;
     font-weight: 900;
 }
 
 
-.nav-links a:hover {
+.navLinks a:hover {
     background-color: #dddddd;
 }
 
-
-ul {
-    padding: 0;
+.navLine {
+    background-color: var(--color-primary);
+    height: 1px;
+    border: none;
 }
+
+
 
 .burger {
     display: none;
@@ -42,7 +46,7 @@ ul {
     height: 2px;
     background-color: var(--color-primary);
     margin: 5px;
-    transition: all .3s ease;
+    transition: all .3s;
 }
 
 @media screen and (max-width: 768px) {
@@ -50,15 +54,15 @@ ul {
         overflow-x: hidden;
     }
 
-    hr {
+    .navLine {
         display: none;
     }
 
-    .nav-links li {
+    .navLinks li {
         margin: 10px;
     }
 
-    .nav-links {
+    .navLinks {
         position: absolute;
         top: 126px;
         overflow: hidden;
@@ -74,16 +78,12 @@ ul {
         justify-content: flex-start;
     }
 
-    .nav-links a {
+    .navLinks a {
         color: #ffffff;
     }
 
-    .nav-links a:hover {
+    .navLinks a:hover {
         color: var(--color-primary);
-    }
-
-    nav {
-        display: flex;
     }
 
     .burger {
@@ -95,18 +95,19 @@ ul {
         margin: auto;
     }
 
-    .nav-active {
+    .navActive {
         max-height: 100vh;
 
     }
 
-    .burger-transformation .line1 {
+    .burgerTransformation .line1 {
         transform: rotate(-405deg) translate(-5px, 5px);
     }
-    .burger-transformation .line2 {
+    .burgerTransformation .line2 {
         opacity: 0;
+        visibility: hidden;
     }
-    .burger-transformation .line3 {
+    .burgerTransformation .line3 {
         transform: rotate(405deg) translate(-5px, -5px);
     }
 }
