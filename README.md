@@ -8,6 +8,8 @@ This project will replace the current online signup process of [mysolarme.de](ht
 - [Docker](https://www.docker.com/)
 - [Redux](https://redux.js.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Jest](https://jestjs.io/)
+- [Puppeteer](https://pptr.dev/)
 
 ## Author
 
