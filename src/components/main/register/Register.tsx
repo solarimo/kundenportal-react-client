@@ -16,13 +16,11 @@ export class Register extends React.Component {
     return (
       <div>
         <RegisterNavbar />
-        <Switch>
           <Route exact path="/register" component={AddressCheck}/>
           <Route exact path="/register/verfuegbarkeit" component={AddressCheck}/>
           <Route exact path="/register/ihr-tarif" component={Calculator}/>
           <Route exact path="/register/vertragsdaten" component={VertragsDatenWizard}/>
           <Route exact path="/register/uebersicht" component={Uebersicht}/>
-        </Switch>
       </div>
 
     );
